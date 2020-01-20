@@ -1,0 +1,202 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.2">
+  <POU Name="FB_EnableNetwork" Id="{621feeb1-2ff3-4614-ac6b-5520eb86a31b}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_EnableNetwork
+VAR_INPUT
+	ADSNetId		: STRING; 	(* Adress of the CANOpen Master. *)
+	NodeId			: INT;		(* Represents the node adress witch is found on Dip Switch of Device *)
+	bExcute			: BOOL;		(* Excutes and updates the operation*)
+	bEnabled		: BOOL;		(* Is axis enabled?*)
+	iOpMode			: INT;		(*Operation Mode. See PLC_EposCmd.lib:FB_SetOperationMode for modes
+										16#01	= 	ProfilePositonMode
+										16#03	= 	ProfileVelocityMode
+										16#06	= 	HomingMode
+										16#FF	= 	PositonMode
+										16#FE	= 	VelocityMode
+										16#FD	= 	CurrentMode*)
+END_VAR
+VAR_OUTPUT
+	bDone			: BOOL;		(* Done Flag is set when Function has done*)
+	bErr			: BOOL;		(* Err Flag is TRUE if an Error has accured, see iErrno for more Details *)
+	iErrNo			: UDINT;		(* Contains detailed Error Information*)
+END_VAR
+VAR
+	iStep: UINT 	:= 0;		(*stepper*)
+	fbClearFault	: FB_ClearFault;
+	fbSetOPMode		: FB_SetOperationMode;
+	fbEnable		: FB_SetEnableState;
+	fbDisable		: FB_SetDisableState;
+END_VAR	]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[CASE iStep OF
+1:	(* Init *)
+	bExcute := FALSE;
+	bDone := FALSE;
+	bErr := FALSE;
+	iErrNo := 0;
+	iStep := 100;
+
+100:	(*Activate node*)
+	fbClearFault(
+		ADSNetId:=ADSNetId ,
+		NodeId:= NodeId,
+		Write:= TRUE,
+		Done=> ,
+		Err=> ,
+		ErrNo=> );
+	fbSetOPMode(
+		ADSNetId:=ADSNetId ,
+		NodeId:= NodeId,
+		Write:= fbClearFault.Done,
+		Mode:= INT_TO_SINT(iOpMode),
+		Done=> ,
+		Err=>bErr,
+		ErrNo=>iErrNo);
+		
+	IF fbSetOPMode.Err THEN
+		iStep := 0;
+	ELSE
+		IF fbSetOPMode.Done THEN
+			iStep:=200;
+		END_IF;
+	END_IF;
+
+200: (*Enable or Disable Node*)
+	IF bEnabled THEN
+		fbEnable(
+			ADSNetId:=ADSNetId ,
+			NodeId:= NodeId,
+			Write:= TRUE,
+			Done=> ,
+			Err=> bErr,
+			ErrNo=> iErrNo);
+	ELSE
+		fbDisable(
+			ADSNetId:=ADSNetId ,
+			NodeId:= NodeId,
+			Write:= TRUE,
+			Done=> ,
+			Err=> bErr,
+			ErrNo=> iErrNo);
+	END_IF;
+
+	IF bErr THEN
+		iStep:=0;
+	ELSE
+		IF (fbEnable.Done OR fbDisable.Done) THEN
+			iStep:=9999;
+		END_IF;
+	END_IF;
+
+9999: (*DONE*)
+	bDone := TRUE;
+	iStep := 0;
+
+ELSE
+	IF bExcute THEN
+		iStep := 1;
+		bDone := FALSE;
+	END_IF;
+
+END_CASE;
+
+(*
+*********************WRITE******************************************
+	Done			: BOOL;		(* Done Flag is set when Function has done *)
+	Err				: BOOL;		(* Err Flag is TRUE if an Error has accured, see Errno for more Details *)
+	ErrNo			: UDINT;		(* Contains detailed Error Information *)
+CASE iStep OF
+
+1:	(* Init *)
+	Write := FALSE;
+	Done := FALSE;
+	Err := FALSE;
+	ErrNo := 0;
+	WriteObj(WRITE := FALSE);
+	iStep := 100;
+
+100:	(* Write Mode *)
+	WriteObj(
+		NETID := ADSNetId,
+		PORT := 16#1000 + NodeId,
+		IDXGRP := 16#6060,
+		IDXOFFS := 0,
+		LEN := 1,
+		SRCADDR := ADR(Mode),
+		WRITE := TRUE,
+		TMOUT := t#100ms);
+	iStep := 101;
+101: WriteObj;
+	IF NOT WriteObj.Busy THEN
+		iStep := 102 ;
+	END_IF
+102:	IF WriteObj.Err THEN
+		iStep := 0;
+		ErrNo := WriteObj.ErrId;
+		Multiplexor := 16#606000;
+		Err := TRUE;
+	ELSE
+		iStep := 0;
+	END_IF
+	Done := TRUE;
+
+ELSE
+	IF Write THEN
+		iStep := 1;
+		Done := FALSE;
+	END_IF;
+END_CASE;
+
+
+****************************READ*******************************
+CASE iStep OF
+
+1:	(* Init *)
+	Read := FALSE;
+	Done := FALSE;
+	Err := FALSE;
+	ErrNo := 0;
+	ReadObj(READ := FALSE);
+	iStep := 100;
+
+100:	(* Read Object *)
+	ReadObj(
+		NETID := ADSNetId,
+		PORT := 16#1000 + NodeId,
+		IDXGRP := ObjectIndex,
+		IDXOFFS := ObjectSubindex,
+		LEN := LEN,
+		DESTADDR := ADR(Data),
+		READ := TRUE,
+		TMOUT := t#100ms);
+	iStep := 101;
+101: ReadObj;
+	IF NOT ReadObj.Busy THEN
+		iStep := 102 ;
+	END_IF
+102:	IF ReadObj.Err THEN
+		iStep := 0;
+		ErrNo := ReadObj.ErrId;
+		Multiplexor := ObjectIndex * 256; (* Shift of 8 *)
+		Multiplexor := Multiplexor + ObjectSubindex;
+		Err := TRUE;
+	ELSE
+		iStep := 0;
+	END_IF;
+	Done := TRUE;
+
+ELSE
+	IF Read THEN
+		iStep := 1;
+		Done := FALSE;
+	END_IF;
+END_CASE;
+*)]]></ST>
+    </Implementation>
+    <LineIds Name="FB_EnableNetwork">
+      <LineId Id="26" Count="23" />
+      <LineId Id="214" Count="0" />
+      <LineId Id="50" Count="138" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

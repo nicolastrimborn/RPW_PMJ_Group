@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.2">
+  <GVL Name="GVL_AxisCtrl" Id="{5e3c40bf-be99-40c2-b810-2504f96b5511}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+VAR_GLOBAL
+	(********************** Extruder Axis******************************)
+	bExtruderSystemEnable 		: BOOL;	
+	bExtruderSystemReset 		: BOOL;
+	lrHotEndTempSP		 		: LREAL := 200.0;
+	sExtruderSystemStatus		: STRING;
+	bExtruderReady				: BOOL;
+
+	bExtruder_AxisEnable		: BOOL;
+	bExtruder_AxisJogPos		: BOOL; 
+	bExtruder_AxisJogNeg		: BOOL;
+	bExtruder_AxisMoveHMI		: BOOL;
+	bExtruder_AxisAbsMoveAct	: BOOL;
+	bExtruder_AxisAbsMoveDone	: BOOL;
+	bExtruder_AxisStop			: BOOL;
+	bExtruder_AxisAbsMove		: BOOL;
+	
+	lrExtruder_AxisTarget		: LREAL := 100.0;
+	lrExtruder_AxisVelocity		: LREAL := 10.0;
+	
+	(******************** Gimbal System *******************************)
+	(*Th1 Axis *)
+	Th1_iVeloSet_IN AT %I*		:INT;   (*Input Velocity from NC system*)
+	Th1_diVeloSet_OUT AT %Q*	:DINT;  (*Velocity Sent to EPOS Drive*)	
+	AX1_diVelocityIs AT %I*		:DINT;
+	AX1_diPositionIs AT %I*		:DINT;
+	AX1_diStatusWordIs AT %I*	:WORD;
+	AX1_diControlWord AT %Q*	:WORD;
+	
+	(*Th2 Axis *)
+	Th2_iVeloSet_IN AT %I*		:INT;   (*Input Velocity from NC system*)
+	Th2_diVeloSet_OUT AT %Q*	:DINT;  (*Velocity Sent to EPOS Drive*)	
+	AX2_diVelocityIs AT %I*		:DINT;
+	AX2_diPositionIs AT %I*		:DINT;
+	AX2_diStatusWordIs AT %I*	:WORD;
+	AX2_diControlWord AT %Q*	:WORD;
+	
+	(* Combined *)
+	bRun						: BOOL	:=	FALSE;	(*Running System*)
+	bInitDone 					: BOOL	:=	FALSE;	(*Initialisation completed*)
+	bEnableAxes					: BOOL	:=	FALSE;	(*Enables axes*)
+	bHaltAxes					: BOOL	:=	FALSE;	(*Halt axes*)
+	bResetAxes					: BOOL	:=	FALSE; 	(*Reset axes*)
+		
+END_VAR
+
+VAR_GLOBAL CONSTANT
+	NId: STRING:= '130.230.11.184.2.1';		(*ADS ID of CANopen master*)
+	Th1_NodeAddr: INT := 2;				(*Node Address of X-Axis*)
+	Th2_NodeAddr: INT := 3;				(*Node Address of X-Axis*)	
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>

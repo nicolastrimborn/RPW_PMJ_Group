@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.2">
+  <POU Name="PRG_AxesEnable" Id="{4e209f4a-abaa-4c63-945b-7ca301afcf23}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM PRG_AxesEnable
+VAR_INPUT
+	bEnable			: BOOL;	(*Enable controller*)
+	bHalt			: BOOL;	(*Halt stops the axis*)
+	bReset			: BOOL;	(*Resets the controller*)
+END_VAR
+VAR_OUTPUT
+	bAxesEnabled	: BOOL;	(*All axes are enabled*)
+	bFaultActive	: BOOL;	(*Fault is active on some axis*)
+	wEnabledStates	: WORD;	(*Axes enable states*)
+	wFaultStates	: WORD;	(*Axes fault states*)
+END_VAR
+VAR
+	fbEnableAxis_Th1: FB_EnableAxis;
+	fbEnableAxis_Th2: FB_EnableAxis;
+	wMaskForAxes	: WORD := 16#01;		(*Mask for active axes in configuration*)
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[fbEnableAxis_Th1(
+	bEnable:=bEnable ,
+	bHalt:= bHalt,
+	bReset:= bReset,
+	wStatus:= GVL_AxisCtrl.AX1_diStatusWordIs,
+	bEnablePos:= TRUE,
+	bEnableNeg:= TRUE,
+	Override:= 100,
+	AxisRef := GVL_NC.Th1_AXIS,
+	bDriveEnabled=> wEnabledStates.0,
+	bFaultActive=> wFaultStates.0,
+	wControl=>GVL_AxisCtrl.AX1_diControlWord);
+	
+fbEnableAxis_Th2(
+	bEnable:=bEnable ,
+	bHalt:= bHalt,
+	bReset:= bReset,
+	wStatus:= GVL_AxisCtrl.AX2_diStatusWordIs,
+	bEnablePos:= TRUE,
+	bEnableNeg:= TRUE,
+	Override:= 100,
+	AxisRef := GVL_NC.Th2_AXIS,
+	bDriveEnabled=> wEnabledStates.0,
+	bFaultActive=> wFaultStates.0,
+	wControl=>GVL_AxisCtrl.AX2_diControlWord);
+
+
+bAxesEnabled := (wEnabledStates AND wMaskForAxes) = wMaskForAxes;
+bFaultActive := (wFaultStates AND wMaskForAxes) > 0;]]></ST>
+    </Implementation>
+    <LineIds Name="PRG_AxesEnable">
+      <LineId Id="16" Count="7" />
+      <LineId Id="48" Count="0" />
+      <LineId Id="26" Count="2" />
+      <LineId Id="65" Count="0" />
+      <LineId Id="67" Count="10" />
+      <LineId Id="66" Count="0" />
+      <LineId Id="29" Count="3" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

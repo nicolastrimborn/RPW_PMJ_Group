@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.2">
+  <POU Name="FB_EPOSstates" Id="{faa83125-a04b-4157-ae62-b79191c4d72c}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_EPOSstates
+VAR_INPUT
+	bEnable	: BOOL;	(*Enable controller*)
+	bHalt	: BOOL;	(*Halt stops the axis*)
+	bReset	: BOOL;	(*Resets the controller*)
+	wStatus	: WORD;	(*Status Word of the Controller*)
+END_VAR
+VAR_OUTPUT
+	bDriveEnabled	: BOOL;	(*Controller is enabled*)
+	bFaultActive		: BOOL;	(*Fault is active on controller*)
+	wControl			: WORD;	(*Control word to Controller*)
+END_VAR
+VAR
+	iStep	: UINT;	(*Sequencer*)
+	(*wControlTemp	: WORD;	(*Local temporar Control word*)*)
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF wStatus.3 THEN (*Fault active*)
+	iStep := 1;
+END_IF;
+
+CASE iStep OF
+
+1:	(*Reset fault*)
+	wControl:=16#0080; (*Resets the controller from fault*)
+	IF NOT wStatus.3 THEN	(*Fault Cleared*)
+		iStep:= 10;
+	END_IF;
+	
+10: (*State: Switch On Disable*)
+	IF bEnable THEN (*Wait for enable*)
+		iStep:= 20;
+	ELSE
+		wControl:=16#0000;	(*Switch On Disable*)	
+	END_IF
+	
+20: (*Begin Enabling Sequence*)
+	IF wStatus.6 THEN (*Switch On Disable*)	
+		wControl:=16#0006;	(*Shutdown*)
+	END_IF	
+	IF wStatus.5 AND wStatus.0 THEN (*Ready to switch ON*) 
+		wControl:=16#0007;	(*Switch On*)
+	END_IF
+	IF wStatus.5 AND wStatus.1 AND wStatus.0 THEN(*Switched On*)	
+		iStep:= 30;
+	END_IF
+	
+30: (*Enable operation*)
+	wControl:=16#000F; 		(*Switch On & Enable Operation*)
+	IF NOT bEnable THEN		(*Disable Controller*)
+		iStep:= 10;
+	END_IF;
+	
+ELSE	(*Default branch*)
+	iStep := 1;
+
+END_CASE;
+
+(*Reset active*)
+IF bReset THEN
+	(*Resets the controller from fault*)
+	wControl:=16#0080;
+	iStep := 1;
+END_IF;
+
+(*Output flags*)
+bFaultActive := wStatus.3;
+bDriveEnabled := wStatus.1 AND wStatus.2;]]></ST>
+    </Implementation>
+    <LineIds Name="FB_EPOSstates">
+      <LineId Id="23" Count="1" />
+      <LineId Id="9" Count="0" />
+      <LineId Id="26" Count="6" />
+      <LineId Id="25" Count="0" />
+      <LineId Id="42" Count="3" />
+      <LineId Id="57" Count="1" />
+      <LineId Id="46" Count="1" />
+      <LineId Id="49" Count="0" />
+      <LineId Id="70" Count="0" />
+      <LineId Id="56" Count="0" />
+      <LineId Id="74" Count="1" />
+      <LineId Id="72" Count="0" />
+      <LineId Id="76" Count="0" />
+      <LineId Id="73" Count="0" />
+      <LineId Id="67" Count="0" />
+      <LineId Id="59" Count="0" />
+      <LineId Id="81" Count="0" />
+      <LineId Id="60" Count="0" />
+      <LineId Id="78" Count="2" />
+      <LineId Id="77" Count="0" />
+      <LineId Id="84" Count="0" />
+      <LineId Id="82" Count="1" />
+      <LineId Id="34" Count="0" />
+      <LineId Id="33" Count="0" />
+      <LineId Id="36" Count="5" />
+      <LineId Id="35" Count="0" />
+      <LineId Id="86" Count="2" />
+      <LineId Id="85" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

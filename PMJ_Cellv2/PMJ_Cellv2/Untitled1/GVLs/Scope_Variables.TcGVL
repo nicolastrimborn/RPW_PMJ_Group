@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.2">
+  <GVL Name="Scope_Variables" Id="{df67542c-b206-4c4c-961f-4e16d5b5a393}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+VAR_GLOBAL
+	fX_Scope	: LREAL;
+	fY_Scope	: LREAL;
+	fW_Scope	: LREAL;
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>

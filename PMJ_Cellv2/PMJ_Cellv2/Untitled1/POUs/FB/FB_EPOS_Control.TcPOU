@@ -1,0 +1,211 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.2">
+  <POU Name="FB_EPOS_Control" Id="{992cc3fd-526a-4d29-ac8c-18b6661aef8d}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_EPOS_Control
+VAR_INPUT
+	bEnable	: BOOL;	(*Enable controller*)
+	bHalt	: BOOL;	(*Halt stops the axis*)
+	bReset	: BOOL;	(*Resets the controller*)
+	wStatus	: WORD;	(*Status Word of the Controller*)
+END_VAR
+VAR_OUTPUT
+	bDriveEnabled	: BOOL;	(*Controller is enabled*)
+	bFaultActive		: BOOL;	(*Fault is active on controller*)
+	wControl			: WORD;	(*Control word to Controller*)
+END_VAR
+VAR
+	iStep	: UINT;	(*Sequencer*)
+	(*wControlTemp	: WORD;	(*Local temporar Control word*)*)
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+//IF wStatus.3 THEN (*Fault active*)
+//	iStep := 1;
+//END_IF;
+
+
+//CASE iStep OF
+
+//1:	(*Reset fault*)
+//	wControl:=16#0080; (*Resets the controller from fault*)
+//	IF NOT wStatus.3 THEN	(*Fault Cleared*)
+//		iStep:= 2;
+//	END_IF;
+
+//2:	(*Wait for enable*)
+//	IF bEnable THEN
+//		iStep:= 10;
+//	ELSE
+//		wControl:=16#0000;	(*Disabled*)
+//	END_IF;
+
+//10:	(*Enabling procedure start*)
+//	(*(Status AND Mask) = expected bit set*)
+////	IF (wStatus AND 16#0017) = 16#0017 THEN
+////		iStep:= 20;
+////	IF wStatus.0 AND wStatus.1 AND wStatus.5 AND NOT wStatus.6 THEN
+////		iStep:= 20;
+//	(*(Status AND Mask) = expected bit set*)
+//	IF (wStatus AND 16#0023) = 16#0023 THEN (*Switched On*)
+//		iStep:= 20;
+//	ELSE
+//		IF wStatus.6 THEN		(*Switch on disable*)
+//			iStep:= 11;
+////		ELSE
+////			iStep:= 20;
+//		END_IF;
+//	END_IF;
+
+//11:	(*Shut down*)
+//	wControl:=16#0006;
+//	IF wStatus.0 THEN		(*Ready to Switch on*)
+//		iStep:= 20;
+//	ELSE
+//		iStep:= 30;	
+//	END_IF;
+
+//20:	(*Enable operation*)
+//	wControl:=16#000F;
+//	IF NOT bEnable THEN		(*Disable Controller*)
+//		iStep:= 2;
+//	END_IF;
+//30: (*Switched On*)
+//	wControl := 16#0007;
+//	IF wStatus.0 AND NOT wStatus.6 THEN
+//		iStep:= 20;
+//	END_IF
+
+//ELSE	(*Default branch*)
+//	iStep := 2;
+
+//END_CASE;
+
+//(*Halt control*)
+//IF wStatus.2 AND NOT wStatus.1 THEN		(*Operation enabled and switched on*)
+//	(*Halt active*)
+//	wControl.8 :=bHalt;
+//END_IF;
+
+//(*Reset active*)
+//IF bReset THEN
+//	(*Resets the controller from fault*)
+//	wControl:=16#0080;
+//	iStep := 1;
+//END_IF;
+
+//(*Output flags*)
+//bFaultActive := wStatus.3;
+//bDriveEnabled := wStatus.1 AND wStatus.2;
+////bDriveEnabled := TRUE;
+
+IF wStatus.3 THEN (*Fault active*)
+	iStep := 1;
+END_IF;
+
+CASE iStep OF
+
+1:	(*Reset fault*)
+	wControl:=16#0080; (*Resets the controller from fault*)
+	IF NOT wStatus.3 THEN	(*Fault Cleared*)
+		iStep:= 10;
+	END_IF;
+	
+10: (*State: Switch On Disable*)
+	IF bEnable THEN (*Wait for enable*)
+		iStep:= 20;
+	ELSE
+		wControl:=16#0000;	(*Switch On Disable*)	
+	END_IF
+	
+20: (*Begin Enabling Sequence*)
+	IF wStatus.6 THEN (*Switch On Disable*)	
+		wControl:=16#0006;	(*Shutdown*)
+	END_IF	
+	IF wStatus.5 AND wStatus.0 THEN (*Ready to switch ON*) 
+		wControl:=16#0007;	(*Switch On*)
+	END_IF
+	IF wStatus.5 AND wStatus.1 AND wStatus.0 THEN(*Switched On*)	
+		iStep:= 30;
+	END_IF
+	
+30: (*Enable operation*)
+	IF NOT bEnable THEN		(*Disable Controller*)
+		iStep:= 10;
+	END_IF;
+
+	IF NOT bHalt THEN
+		wControl:=16#000F; 		(*Switch On & Enable Operation*)
+	ELSE
+		iStep:= 40;
+	END_IF
+		
+	IF NOT wStatus.1 AND NOT wStatus.2 THEN (*Drive is not enabled*)
+		iStep:= 20;
+	END_IF
+	
+40: (*State: QuickStop Active*)
+	IF bHalt THEN
+		wControl := 16#0002;
+	ELSE
+		iStep:= 30;
+	END_IF
+
+ELSE	(*Default branch*)
+	iStep := 1;
+
+END_CASE;
+
+(*Reset active*)
+IF bReset THEN
+	(*Resets the controller from fault*)
+	wControl:=16#0080;
+	iStep := 1;
+END_IF;
+
+(*Halt control*)
+IF wStatus.2 AND NOT wStatus.1 THEN		(*Operation enabled and switched on*)
+	(*Halt active*)
+	wControl.8 :=bHalt;
+END_IF;
+
+(*Output flags*)
+bFaultActive := wStatus.3;
+bDriveEnabled := wStatus.1 AND wStatus.2;]]></ST>
+    </Implementation>
+    <LineIds Name="FB_EPOS_Control">
+      <LineId Id="17" Count="8" />
+      <LineId Id="27" Count="12" />
+      <LineId Id="125" Count="2" />
+      <LineId Id="116" Count="1" />
+      <LineId Id="128" Count="2" />
+      <LineId Id="43" Count="3" />
+      <LineId Id="131" Count="0" />
+      <LineId Id="48" Count="6" />
+      <LineId Id="118" Count="1" />
+      <LineId Id="55" Count="6" />
+      <LineId Id="121" Count="1" />
+      <LineId Id="62" Count="0" />
+      <LineId Id="123" Count="1" />
+      <LineId Id="63" Count="21" />
+      <LineId Id="100" Count="0" />
+      <LineId Id="133" Count="31" />
+      <LineId Id="242" Count="1" />
+      <LineId Id="241" Count="0" />
+      <LineId Id="240" Count="0" />
+      <LineId Id="165" Count="0" />
+      <LineId Id="229" Count="1" />
+      <LineId Id="233" Count="0" />
+      <LineId Id="238" Count="0" />
+      <LineId Id="166" Count="0" />
+      <LineId Id="199" Count="2" />
+      <LineId Id="234" Count="1" />
+      <LineId Id="237" Count="0" />
+      <LineId Id="244" Count="3" />
+      <LineId Id="169" Count="11" />
+      <LineId Id="218" Count="4" />
+      <LineId Id="217" Count="0" />
+      <LineId Id="181" Count="2" />
+      <LineId Id="132" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

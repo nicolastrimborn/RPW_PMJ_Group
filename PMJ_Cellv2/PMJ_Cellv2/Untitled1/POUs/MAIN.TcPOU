@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.2">
+  <POU Name="MAIN" Id="{0c1a4696-92e3-485c-8109-c9f8a167d8ed}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MAIN
+VAR
+	Hearbeat				: DINT :=0;
+	lrHotendTemp			: LREAL;
+	bEnableExtrusionSystem 	: BOOL := FALSE;
+	bResetExtrusionSystem 	: BOOL := FALSE;
+	bEnableGimbalAxis 		: BOOL := TRUE;
+	
+	fUserOverride			: LREAL:= 100.0;
+	in_stItpToPlc	AT %I*:	NcToPlc_NciChannel_Ref;
+	out_stPlcToItp	AT %Q*:	PLCTONC_NCICHANNEL_REF;
+	
+	fbSimpleNciSequence		: FB_SimpleNciSequence;
+	bExecSimpleNci:	BOOL	:= FALSE;
+	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[Hearbeat := Hearbeat+1;
+GVL_IO.lrHotendTemp := GVL_IO.lrRawTemp/10.0;
+
+PRG_ExtruderSys();
+
+IF NOT  PRG_Init.BDONE THEN
+	PRG_Init(bExecute:=TRUE , bDone=> );
+	GVL_AxisCtrl.bEnableAxes := FALSE;
+
+ELSE	(*Init done*)
+		
+	PRG_AxesEnable(
+		//bEnable:= GVL_AxisCtrl.bEnableAxes,
+		bEnable:= bEnableGimbalAxis,
+		bHalt:= GVL_AxisCtrl.bHaltAxes,
+		bReset:= GVL_AxisCtrl.bResetAxes,
+		bAxesEnabled=> GVL_AxisCtrl.bRun, 
+		bFaultActive=> , 
+		wEnabledStates=> , 
+		wFaultStates=> );
+		
+ItpSetOverridePercent(fOverridePercent:=fUserOverride , sPlcToNci:=out_stPlcToItp);
+
+fbSimpleNciSequence(
+	bExecute:= bExecSimpleNci, 
+	bBusy=> , 
+	bError=> , 
+	bDone=> , 
+	stX:=GVL_NC.Th1_AXIS, 
+	stY:=GVL_NC.Th2_AXIS, 
+	stZ:=GVL_NC.Th2_AXIS, 
+	stItpToPlc:= in_stItpToPlc , 
+	stPlcToItp:= out_stPlcToItp);		
+END_IF;	
+	
+	
+//PRG_ExtrusionSystem(
+//	bEnable:= bEnableExtrusionSystem,
+//	bReset := bResetExtrusionSystem);
+]]></ST>
+    </Implementation>
+    <LineIds Name="MAIN">
+      <LineId Id="2" Count="0" />
+      <LineId Id="256" Count="0" />
+      <LineId Id="250" Count="0" />
+      <LineId Id="252" Count="0" />
+      <LineId Id="265" Count="5" />
+      <LineId Id="264" Count="0" />
+      <LineId Id="279" Count="2" />
+      <LineId Id="310" Count="0" />
+      <LineId Id="282" Count="3" />
+      <LineId Id="278" Count="0" />
+      <LineId Id="293" Count="1" />
+      <LineId Id="317" Count="9" />
+      <LineId Id="303" Count="0" />
+      <LineId Id="273" Count="1" />
+      <LineId Id="276" Count="0" />
+      <LineId Id="247" Count="1" />
+      <LineId Id="228" Count="0" />
+      <LineId Id="127" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

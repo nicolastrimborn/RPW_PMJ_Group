@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.2">
+  <Task Name="DriveUD" Id="{205035cb-6327-4756-9853-b852bb934d35}">
+    <!--CycleTime in micro seconds.-->
+    <CycleTime>10000</CycleTime>
+    <Priority>22</Priority>
+    <TaskFBGuid>{b90eaed7-85df-49d6-a83d-0e2be4c5dbc7}</TaskFBGuid>
+    <Fb_init>{5a8f0583-26a2-4e75-99a5-9411c22dc24b}</Fb_init>
+    <Fb_exit>{837716b3-b79e-4c61-8312-e04829b28061}</Fb_exit>
+    <CycleUpdate>{99956491-8ce6-4061-8da2-1859c9c70f15}</CycleUpdate>
+    <PostCycleUpdate>{6a61d762-80f4-4808-8d4f-4abcdaa748ec}</PostCycleUpdate>
+  </Task>
+</TcPlcObject>

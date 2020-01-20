@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.2">
+  <GVL Name="GVL_NC" Id="{9ba41309-e020-4a17-82f1-4ead2a6730bf}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+VAR_GLOBAL
+	(************************* Axis Ref *******************************)
+	(* Extruder System *)
+	Extruder_AXIS			: AXIS_REF;
+	HotEnd_AXIS				: AXIS_REF;	
+	(* Gimbal *)
+	Th1_AXIS				: AXIS_REF;
+	Th2_AXIS				: AXIS_REF;
+	
+	(************************* Axis Status ****************************)
+	(* Extruder System *)
+	Extruder_AXIS_Status	: ST_AxisStatus;
+	HotEnd_AXIS_Status		: ST_AxisStatus;
+	(* Gimbal *)
+	Th1_AXIS_Status			: ST_AxisStatus;
+	Th2_AXIS_Status			: ST_AxisStatus;
+		
+	// 	From Niko Code
+	//	PlcToNc_Th1 AT %Q*		: PLCTONC_AXIS_REF;	(*Motor 1*)
+	//	NcToPlc_Th1 AT %I*		: NCTOPLC_AXIS_REF;	(*Motor 1*)
+	
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>

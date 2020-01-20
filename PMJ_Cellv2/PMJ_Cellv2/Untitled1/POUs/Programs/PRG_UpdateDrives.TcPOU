@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.2">
+  <POU Name="PRG_updateDrives" Id="{bc0ff2d8-d0fd-4873-b659-65a0e940cd4a}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM PRG_updateDrives
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[GVL_AxisCtrl.Th1_diVeloSet_OUT := GVL_AxisCtrl.Th1_iVeloSet_IN;
+GVL_AxisCtrl.Th2_diVeloSet_OUT := GVL_AxisCtrl.Th2_iVeloSet_IN;]]></ST>
+    </Implementation>
+    <LineIds Name="PRG_updateDrives">
+      <LineId Id="5" Count="0" />
+      <LineId Id="9" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

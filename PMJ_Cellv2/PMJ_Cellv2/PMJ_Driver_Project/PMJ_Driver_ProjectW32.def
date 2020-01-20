@@ -1,0 +1,10 @@
+; PMJ_DRIVER_PROJECTW32.def : Declares the module parameters.
+
+LIBRARY      "PMJ_Driver_ProjectW32.DLL"
+
+EXPORTS
+	DllCanUnloadNow      PRIVATE
+	DllGetClassObject    PRIVATE
+	DllRegisterServer    PRIVATE
+	DllUnregisterServer	 PRIVATE
+	DllGetTcCtrl		 PRIVATE

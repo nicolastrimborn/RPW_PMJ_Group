@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<TcLicenseInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2011/11/TcLicenseInfo">
+	<LicenseInfo>
+		<SystemId>{90CB77E4-1BF3-7428-BC56-87CF070212D5}</SystemId>
+		<IssueTime>2020-01-15T16:30:00</IssueTime>
+		<ExpireTime>2020-01-23T00:00:00</ExpireTime>
+		<LicenseKey>18ef9eb70356109a27cbcddc6db59c4223902dcd58a73b58902503b3c1fffd48c941649939e212122608aacb6f4b92763658cf7eed1feb5decf2cd86705aaf57b3848f7216513146e675ac0ac70007e97c1ac1b7af5126140c847d606f31b842be63fbbb8f104c344ca9926762faf27c16b0721bf302846b2a418e8247384525bbfeb700fd76285584dce50d3b2595e67d5cfd28ef99277274d1b4f345d4498eb0a91c687dc1fcf14cd9cb2e94842cb686a104b5d071bf61d3546224dd68e95d22f713e64bd9a59134731b35ec61ee138c39cd724bc6974042399ae08070092dd148f3dcdee9f2ff1e3f66f3ec64b3c0becb22167da415a1f4cbbde1da0f483d</LicenseKey>
+		<License>
+			<LicenseId>{DEA72F0A-9EA0-48F4-ABB5-766516202B8E}</LicenseId>
+			<Name>TC3 NC I</Name>
+			<OrderNo>TF5100</OrderNo>
+		</License>
+		<License>
+			<LicenseId>{461F547B-9F81-4C4D-8BE6-01F8B3B14C86}</LicenseId>
+			<Name>TC3 Building Automation Basic</Name>
+			<OrderNo>TF8010</OrderNo>
+		</License>
+		<License>
+			<LicenseId>{4C256767-E6E6-4AF5-BD68-9F7ABAD0C200}</LicenseId>
+			<Name>TC3 ADS</Name>
+			<OrderNo>TC1000</OrderNo>
+		</License>
+		<License>
+			<LicenseId>{777F1598-583B-4503-99BB-7C02E0ABD97E}</LicenseId>
+			<Name>TC3 Controller Toolbox</Name>
+			<OrderNo>TF4100</OrderNo>
+		</License>
+		<License>
+			<LicenseId>{A19036CF-A53B-4E3A-99FF-023EF5C4798B}</LicenseId>
+			<Name>TC3 NC PTP Axis</Name>
+			<Instances>10</Instances>
+		</License>
+		<License>
+			<LicenseId>{66689887-CCBD-452C-AC9A-039D997C6E66}</LicenseId>
+			<Name>TC3 PLC</Name>
+			<OrderNo>TC1200</OrderNo>
+		</License>
+		<License>
+			<LicenseId>{520DE751-9DB6-47CB-8240-BD5C466E7E64}</LicenseId>
+			<Name>TC3 NC PTP</Name>
+			<OrderNo>TF5000</OrderNo>
+		</License>
+		<License>
+			<LicenseId>{1EEBBAAA-51E1-4750-9D6A-7B04116EA32B}</LicenseId>
+			<Name>TC3 Temperature-Controller</Name>
+			<OrderNo>TF4110</OrderNo>
+		</License>
+		<License>
+			<LicenseId>{3FF18E97-7754-401B-93FB-70544DE28A13}</LicenseId>
+			<Name>TC3 IO</Name>
+			<OrderNo>TC1100</OrderNo>
+		</License>
+	</LicenseInfo>
+</TcLicenseInfo>
