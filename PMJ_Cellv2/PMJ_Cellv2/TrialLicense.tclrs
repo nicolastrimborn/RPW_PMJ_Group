@@ -2,13 +2,13 @@
 <TcLicenseInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2011/11/TcLicenseInfo">
 	<LicenseInfo>
 		<SystemId>{90CB77E4-1BF3-7428-BC56-87CF070212D5}</SystemId>
-		<IssueTime>2020-01-15T16:30:00</IssueTime>
-		<ExpireTime>2020-01-23T00:00:00</ExpireTime>
-		<LicenseKey>18ef9eb70356109a27cbcddc6db59c4223902dcd58a73b58902503b3c1fffd48c941649939e212122608aacb6f4b92763658cf7eed1feb5decf2cd86705aaf57b3848f7216513146e675ac0ac70007e97c1ac1b7af5126140c847d606f31b842be63fbbb8f104c344ca9926762faf27c16b0721bf302846b2a418e8247384525bbfeb700fd76285584dce50d3b2595e67d5cfd28ef99277274d1b4f345d4498eb0a91c687dc1fcf14cd9cb2e94842cb686a104b5d071bf61d3546224dd68e95d22f713e64bd9a59134731b35ec61ee138c39cd724bc6974042399ae08070092dd148f3dcdee9f2ff1e3f66f3ec64b3c0becb22167da415a1f4cbbde1da0f483d</LicenseKey>
+		<IssueTime>2020-01-20T10:01:00</IssueTime>
+		<ExpireTime>2020-01-28T00:00:00</ExpireTime>
+		<LicenseKey>a207f80c2819b8ee32c17c8a198038fffdfe4dfaf4dc314f1a14340b9da01a1a309c423ac5635ab03e5676ec2bca53dff36142af96d19f421f4818ca6834911415cb644cf0574564b2869ae8b3b417d34b4c48ebdd196b3bbce90e3c669241aae967b155b5d973171fef809171d3c3162f9e3d4a14a347ec9ce1af1dc8e5a02b7005a1d02ce51dea0a14573a20d666e1b047e8f40812cde8474289b9be2f662a8468c0362dbf6dfbb89a0b016c780c2b68ad95defeb8bd15a195b89188ab2873e2cdd2890ce4dda4d140d4e1ae198a5f60b4a6ba7970f196d0b82256413f76bcb5e59e8654c4285de7517dac98d8d76894ebead97bb45cce3b99b3c202090b44</LicenseKey>
 		<License>
-			<LicenseId>{DEA72F0A-9EA0-48F4-ABB5-766516202B8E}</LicenseId>
-			<Name>TC3 NC I</Name>
-			<OrderNo>TF5100</OrderNo>
+			<LicenseId>{D6854388-0494-4832-9169-8003C437CBA5}</LicenseId>
+			<Name>TC3 Robotics mxAutomation</Name>
+			<OrderNo>TF5120</OrderNo>
 		</License>
 		<License>
 			<LicenseId>{461F547B-9F81-4C4D-8BE6-01F8B3B14C86}</LicenseId>
@@ -39,6 +39,11 @@
 			<LicenseId>{520DE751-9DB6-47CB-8240-BD5C466E7E64}</LicenseId>
 			<Name>TC3 NC PTP</Name>
 			<OrderNo>TF5000</OrderNo>
+		</License>
+		<License>
+			<LicenseId>{DEA72F0A-9EA0-48F4-ABB5-766516202B8E}</LicenseId>
+			<Name>TC3 NC I</Name>
+			<OrderNo>TF5100</OrderNo>
 		</License>
 		<License>
 			<LicenseId>{1EEBBAAA-51E1-4750-9D6A-7B04116EA32B}</LicenseId>
