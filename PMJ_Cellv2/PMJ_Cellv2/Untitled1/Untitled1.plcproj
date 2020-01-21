@@ -84,9 +84,6 @@
     <Compile Include="POUs\TempControl\Controller_v2.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\TempControl\POU_TempControl.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Visualization Manager.TcVMO">
       <SubType>Code</SubType>
     </Compile>

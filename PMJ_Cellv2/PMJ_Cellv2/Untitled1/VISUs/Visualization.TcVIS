@@ -755,9 +755,9 @@
                               <d n="TypeNodeAttributesData" t="CaseInsensitiveHashtable" ckt="String" cvt="String">
                                 <v>DescriptionTextId</v>
                                 <v>TL_ElementProperties.Desc_BarOrientation</v>
-                                <v>Category</v>
-                                <v>Simple|Standard</v>
                                 <v>RebuildPropertiesOnChanges</v>
+                                <v></v>
+                                <v>UseInitValue</v>
                                 <v></v>
                                 <v>ElementOrientation</v>
                                 <v></v>
@@ -765,8 +765,8 @@
                                 <v>False</v>
                                 <v>DisplayTextId</v>
                                 <v>TL_ElementProperties.Orientation</v>
-                                <v>UseInitValue</v>
-                                <v></v>
+                                <v>Category</v>
+                                <v>Simple|Standard</v>
                                 <v>''NORMAL__COMMENT</v>
                                 <v> The orientation of the bar
  The property tree needs a rebuilt after change of this component, because the
@@ -817,14 +817,14 @@
                                 <v> The running direction if the orientation is horizontal</v>
                                 <v>DescriptionTextId</v>
                                 <v>TL_ElementProperties.Desc_RunningDirection</v>
+                                <v>Category</v>
+                                <v>Simple|Standard</v>
                                 <v>DisplayTextId</v>
                                 <v>TL_ElementProperties.RunningDirection</v>
                                 <v>VisibleIf</v>
                                 <v>ValueOfNodeWithAttr,ElementOrientation,String,HORIZONTAL</v>
                                 <v>UseInitValue</v>
                                 <v></v>
-                                <v>Category</v>
-                                <v>Simple|Standard</v>
                               </d>
                               <v n="ConvDone">true</v>
                             </o>
@@ -868,14 +868,14 @@
                                 <v> The running direction if the orientation is vertical.</v>
                                 <v>DescriptionTextId</v>
                                 <v>TL_ElementProperties.Desc_RunningDirection</v>
+                                <v>Category</v>
+                                <v>Simple|Standard</v>
                                 <v>DisplayTextId</v>
                                 <v>TL_ElementProperties.RunningDirection</v>
                                 <v>VisibleIf</v>
                                 <v>ValueOfNodeWithAttr,ElementOrientation,String,VERTICAL</v>
                                 <v>UseInitValue</v>
                                 <v></v>
-                                <v>Category</v>
-                                <v>Simple|Standard</v>
                               </d>
                               <v n="ConvDone">true</v>
                             </o>
@@ -908,6 +908,8 @@
                               <d n="TypeNodeAttributesData" t="CaseInsensitiveHashtable" ckt="String" cvt="String">
                                 <v>DescriptionTextId</v>
                                 <v>TL_ElementProperties.Desc_BarOptimumSize</v>
+                                <v>Category</v>
+                                <v>Standard</v>
                                 <v>DisplayTextId</v>
                                 <v>TL_ElementProperties.BarOptimumSize</v>
                                 <v>VisibleIf</v>
@@ -916,8 +918,6 @@
                                 <v> not visible for flat style and white style</v>
                                 <v>UseInitValue</v>
                                 <v></v>
-                                <v>Category</v>
-                                <v>Standard</v>
                               </d>
                               <v n="ConvDone">true</v>
                             </o>
@@ -1166,12 +1166,12 @@
                                       <v>TL_ElementProperties.Color</v>
                                       <v>EditorType</v>
                                       <v>Color</v>
-                                      <v>DescriptionTextId</v>
-                                      <v>TL_ElementProperties.Desc_AreaColor</v>
-                                      <v>''DOCU__COMMENT</v>
-                                      <v> The background color of the color area</v>
                                       <v>UseInitValue</v>
                                       <v></v>
+                                      <v>''DOCU__COMMENT</v>
+                                      <v> The background color of the color area</v>
+                                      <v>DescriptionTextId</v>
+                                      <v>TL_ElementProperties.Desc_AreaColor</v>
                                     </d>
                                     <v n="ConvDone">false</v>
                                   </o>
@@ -1316,12 +1316,12 @@
                                         <v>TL_ElementProperties.Color</v>
                                         <v>EditorType</v>
                                         <v>Color</v>
-                                        <v>DescriptionTextId</v>
-                                        <v>TL_ElementProperties.Desc_AreaColor</v>
-                                        <v>''DOCU__COMMENT</v>
-                                        <v> The background color of the color area</v>
                                         <v>UseInitValue</v>
                                         <v></v>
+                                        <v>''DOCU__COMMENT</v>
+                                        <v> The background color of the color area</v>
+                                        <v>DescriptionTextId</v>
+                                        <v>TL_ElementProperties.Desc_AreaColor</v>
                                       </d>
                                       <v n="ConvDone">false</v>
                                     </o>
@@ -2186,18 +2186,18 @@
                 <v n="VisualElementIdentifier">"GenElemInst_24"</v>
                 <n n="VisualElementOfflinePaintCommands" />
                 <n n="VisualElementFrameInformation" />
-                <d n="VisualElementInputActions" t="Hashtable" ckt="String" cvt="IInputAction[]">
+                <d n="VisualElementInputActions" t="Hashtable" ckt="String" cvt="InputBoxInputAction[]">
                   <v>OnMouseDown</v>
                   <a cet="InputBoxInputAction">
                     <o>
                       <v n="InputBoxVariable">"GVL_AxisCtrl.lrHotEndTempSP"</v>
                       <v n="InputType">"InputWithLimits"</v>
-                      <v n="InputBoxMin">"0"</v>
-                      <v n="InputBoxMax">"230"</v>
+                      <v n="InputBoxMin">"180"</v>
+                      <v n="InputBoxMax">"240"</v>
                       <v n="InputBoxDialogTitle">""</v>
                       <v n="Password">false</v>
                       <v n="UseTextOutputVariable">false</v>
-                      <v n="TextOutputVariableInitialized">false</v>
+                      <v n="TextOutputVariableInitialized">true</v>
                       <v n="OtherVarConversion">""</v>
                       <v n="Format">""</v>
                       <v n="DialogPosition" t="DialogPositionSetting">UseGlobalSetting</v>
@@ -2876,7 +2876,7 @@
                 <v n="VisualElementIdentifier">"GenElemInst_35"</v>
                 <n n="VisualElementOfflinePaintCommands" />
                 <n n="VisualElementFrameInformation" />
-                <d n="VisualElementInputActions" t="Hashtable" ckt="String" cvt="IInputAction[]">
+                <d n="VisualElementInputActions" t="Hashtable" ckt="String" cvt="InputBoxInputAction[]">
                   <v>OnMouseDown</v>
                   <a cet="InputBoxInputAction">
                     <o>
@@ -2887,7 +2887,7 @@
                       <v n="InputBoxDialogTitle">""</v>
                       <v n="Password">false</v>
                       <v n="UseTextOutputVariable">false</v>
-                      <v n="TextOutputVariableInitialized">false</v>
+                      <v n="TextOutputVariableInitialized">true</v>
                       <v n="OtherVarConversion">""</v>
                       <v n="Format">""</v>
                       <v n="DialogPosition" t="DialogPositionSetting">UseGlobalSetting</v>
@@ -2991,7 +2991,7 @@
                     </o>
                     <o>
                       <v n="Id">1649127785L</v>
-                      <v n="Value">174</v>
+                      <v n="Value">169</v>
                     </o>
                     <o>
                       <v n="Id">357335551L</v>
@@ -2999,7 +2999,7 @@
                     </o>
                     <o>
                       <v n="Id">2422045748L</v>
-                      <v n="Value">140</v>
+                      <v n="Value">149</v>
                     </o>
                     <o>
                       <v n="Id">2134141914L</v>
@@ -3034,7 +3034,7 @@
                     </o>
                     <o>
                       <v n="Id">390574330L</v>
-                      <v n="Value">"Feed Rate:  %10.1f"</v>
+                      <v n="Value">"Feed Rate:  %10.1f mm/s"</v>
                     </o>
                     <o>
                       <v n="Id">2597686782L</v>
@@ -3046,7 +3046,7 @@
                     </o>
                     <o>
                       <v n="Id">823443203L</v>
-                      <v n="Value">"517"</v>
+                      <v n="Value">"524"</v>
                     </o>
                   </l>
                 </o>
@@ -3056,14 +3056,14 @@
                 <v n="VisualElementIdentifier">"GenElemInst_37"</v>
                 <n n="VisualElementOfflinePaintCommands" />
                 <n n="VisualElementFrameInformation" />
-                <d n="VisualElementInputActions" t="Hashtable" ckt="String" cvt="IInputAction[]">
+                <d n="VisualElementInputActions" t="Hashtable" ckt="String" cvt="InputBoxInputAction[]">
                   <v>OnMouseDown</v>
                   <a cet="InputBoxInputAction">
                     <o>
                       <v n="InputBoxVariable">"GVL_AxisCtrl.lrExtruder_AxisVelocity"</v>
                       <v n="InputType">"InputWithLimits"</v>
                       <v n="InputBoxMin">"0"</v>
-                      <v n="InputBoxMax">"20"</v>
+                      <v n="InputBoxMax">"4"</v>
                       <v n="InputBoxDialogTitle">""</v>
                       <v n="Password">false</v>
                       <v n="UseTextOutputVariable">false</v>
@@ -3523,10 +3523,10 @@
               <d n="FbMethods" t="CaseInsensitiveHashtable_1" ckt="String" cvt="Guid">
                 <v>FB_Init</v>
                 <v>6202ff9f-d3e8-4bb2-9063-6f1b96aca661</v>
-                <v>FB_Reinit</v>
-                <v>3441f110-1808-4e40-bfa4-232994c6c07b</v>
                 <v>FB_Exit</v>
                 <v>586a9a09-d9a5-4034-babe-87d68d5023c9</v>
+                <v>FB_Reinit</v>
+                <v>3441f110-1808-4e40-bfa4-232994c6c07b</v>
               </d>
               <v n="FbName">"NotImportant"</v>
               <v n="FbGuid">{f917505c-0c43-45c5-a9dd-a8d7fd150aae}</v>
@@ -3622,8 +3622,8 @@
         <Type n="Guid">System.Guid</Type>
         <Type n="Hashtable">System.Collections.Hashtable</Type>
         <Type n="HotkeyConfiguration">{6b108d46-58af-4e41-a3f4-174d8f160cc4}</Type>
-        <Type n="IInputAction[]">_3S.CoDeSys.VisualElem.IInputAction[], VisualElem, Version=3.5.13.0, Culture=neutral, PublicKeyToken=null</Type>
         <Type n="InputBoxInputAction">{e8e7e747-f76f-4dee-ab1c-b9637e41ac26}</Type>
+        <Type n="InputBoxInputAction[]">_3S.CoDeSys.VisualElem.InputBoxInputAction[], VisualElem.plugin, Version=3.5.13.30, Culture=neutral, PublicKeyToken=null</Type>
         <Type n="Int16">System.Int16</Type>
         <Type n="Int32">System.Int32</Type>
         <Type n="Int64">System.Int64</Type>

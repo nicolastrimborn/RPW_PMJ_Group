@@ -19,8 +19,8 @@ VAR_GLOBAL
 	bExtruder_AxisStop			: BOOL;
 	bExtruder_AxisAbsMove		: BOOL;
 	
-	lrExtruder_AxisTarget		: LREAL := 100.0;
-	lrExtruder_AxisVelocity		: LREAL := 10.0;
+	lrExtruder_AxisTarget		: LREAL := 10.0;
+	lrExtruder_AxisVelocity		: LREAL := 2.0;
 	
 	(******************** Gimbal System *******************************)
 	(*Th1 Axis *)
@@ -50,8 +50,8 @@ END_VAR
 
 VAR_GLOBAL CONSTANT
 	NId: STRING:= '130.230.11.184.2.1';		(*ADS ID of CANopen master*)
-	Th1_NodeAddr: INT := 2;				(*Node Address of X-Axis*)
-	Th2_NodeAddr: INT := 3;				(*Node Address of X-Axis*)	
+	Th1_NodeAddr: INT := 3;				(*Node Address of Th1-Axis*)
+	Th2_NodeAddr: INT := 2;				(*Node Address of Th1-Axis*)	
 END_VAR]]></Declaration>
   </GVL>
 </TcPlcObject>

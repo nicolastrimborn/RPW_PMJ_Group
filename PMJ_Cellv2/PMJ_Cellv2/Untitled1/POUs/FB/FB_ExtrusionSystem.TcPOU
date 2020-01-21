@@ -23,19 +23,20 @@ VAR_OUTPUT
 	
 END_VAR
 VAR_IN_OUT
-	ExtruderAxisRef:	AXIS_REF;
+	ExtruderAxisRef			: AXIS_REF;
 END_VAR
 
 VAR
-	nState				: UDINT := 0;
-	nErrorState			: UDINT;
-	eErrorId			: UDINT;
+	nState					: UDINT := 0;
+	nErrorState				: UDINT;
+	eErrorId				: UDINT;
 	
-	MC_Power_Extruder	: MC_Power;
-	MC_Reset_Extruder 	: MC_Reset;
-	MC_Stop_Extruder 	: MC_Stop;
-	MC_Move_Rel_Extruder : MC_MoveRelative;
-	fbHotendTempController : FB_TempControl;
+	MC_Power_Extruder		: MC_Power;
+	MC_Reset_Extruder 		: MC_Reset;
+	MC_ZeroPos_Extruder		: MC_SetPosition;
+	MC_Stop_Extruder 		: MC_Stop;
+	MC_Move_Rel_Extruder 	: MC_MoveRelative;
+	fbHotendTempController 	: FB_TempControl;
 	//bEnableHotEnd: BOOL;
 END_VAR
 ]]></Declaration>
@@ -83,7 +84,7 @@ MC_Move_Rel_Extruder(
 	ErrorID=> );
 
 IF bReset THEN
-	nState := 0;
+	nState := 30;
 END_IF
 
 IF NOT bEnable THEN
@@ -181,61 +182,7 @@ END_CASE]]></ST>
       <LineId Id="380" Count="0" />
       <LineId Id="243" Count="0" />
       <LineId Id="190" Count="0" />
-      <LineId Id="23" Count="0" />
-      <LineId Id="285" Count="0" />
-      <LineId Id="433" Count="0" />
-      <LineId Id="294" Count="0" />
-      <LineId Id="348" Count="1" />
-      <LineId Id="340" Count="0" />
-      <LineId Id="351" Count="0" />
-      <LineId Id="32" Count="0" />
-      <LineId Id="342" Count="1" />
-      <LineId Id="352" Count="0" />
-      <LineId Id="344" Count="0" />
-      <LineId Id="354" Count="0" />
-      <LineId Id="362" Count="0" />
-      <LineId Id="361" Count="0" />
-      <LineId Id="359" Count="1" />
-      <LineId Id="427" Count="0" />
-      <LineId Id="367" Count="2" />
-      <LineId Id="364" Count="0" />
-      <LineId Id="370" Count="2" />
-      <LineId Id="337" Count="0" />
-      <LineId Id="93" Count="0" />
-      <LineId Id="428" Count="0" />
-      <LineId Id="158" Count="0" />
-      <LineId Id="160" Count="1" />
-      <LineId Id="145" Count="0" />
-      <LineId Id="144" Count="0" />
-      <LineId Id="95" Count="0" />
-      <LineId Id="263" Count="0" />
-      <LineId Id="430" Count="0" />
-      <LineId Id="339" Count="0" />
-      <LineId Id="187" Count="0" />
-      <LineId Id="146" Count="0" />
-      <LineId Id="34" Count="0" />
-      <LineId Id="431" Count="0" />
-      <LineId Id="175" Count="0" />
-      <LineId Id="179" Count="0" />
-      <LineId Id="291" Count="0" />
-      <LineId Id="250" Count="1" />
-      <LineId Id="249" Count="0" />
-      <LineId Id="181" Count="1" />
-      <LineId Id="432" Count="0" />
-      <LineId Id="309" Count="1" />
-      <LineId Id="452" Count="1" />
-      <LineId Id="308" Count="0" />
-      <LineId Id="311" Count="1" />
-      <LineId Id="456" Count="1" />
-      <LineId Id="455" Count="0" />
-      <LineId Id="460" Count="0" />
-      <LineId Id="462" Count="0" />
-      <LineId Id="459" Count="0" />
-      <LineId Id="100" Count="0" />
-      <LineId Id="425" Count="0" />
-      <LineId Id="373" Count="0" />
-      <LineId Id="378" Count="0" />
-      <LineId Id="424" Count="0" />
+      <LineId Id="541" Count="68" />
       <LineId Id="379" Count="0" />
       <LineId Id="377" Count="0" />
       <LineId Id="29" Count="0" />

@@ -25,6 +25,7 @@ GVL_IO.lrHotendTemp := GVL_IO.lrRawTemp/10.0;
 PRG_ExtruderSys();
 
 IF NOT  PRG_Init.BDONE THEN
+//IF NOT GVL_AxisCtrl.bInitDone THEN
 	PRG_Init(bExecute:=TRUE , bDone=> );
 	GVL_AxisCtrl.bEnableAxes := FALSE;
 
@@ -65,7 +66,9 @@ END_IF;
       <LineId Id="256" Count="0" />
       <LineId Id="250" Count="0" />
       <LineId Id="252" Count="0" />
-      <LineId Id="265" Count="5" />
+      <LineId Id="265" Count="1" />
+      <LineId Id="343" Count="0" />
+      <LineId Id="267" Count="3" />
       <LineId Id="264" Count="0" />
       <LineId Id="279" Count="2" />
       <LineId Id="310" Count="0" />

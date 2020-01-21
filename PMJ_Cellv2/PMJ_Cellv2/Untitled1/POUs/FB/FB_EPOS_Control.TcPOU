@@ -97,6 +97,9 @@ END_VAR]]></Declaration>
 //bFaultActive := wStatus.3;
 //bDriveEnabled := wStatus.1 AND wStatus.2;
 ////bDriveEnabled := TRUE;
+IF NOT bEnable THEN
+	iStep := 10;
+END_IF
 
 IF wStatus.3 THEN (*Fault active*)
 	iStep := 1;
@@ -188,7 +191,9 @@ bDriveEnabled := wStatus.1 AND wStatus.2;]]></ST>
       <LineId Id="123" Count="1" />
       <LineId Id="63" Count="21" />
       <LineId Id="100" Count="0" />
-      <LineId Id="133" Count="31" />
+      <LineId Id="133" Count="0" />
+      <LineId Id="263" Count="2" />
+      <LineId Id="134" Count="30" />
       <LineId Id="242" Count="1" />
       <LineId Id="241" Count="0" />
       <LineId Id="240" Count="0" />
