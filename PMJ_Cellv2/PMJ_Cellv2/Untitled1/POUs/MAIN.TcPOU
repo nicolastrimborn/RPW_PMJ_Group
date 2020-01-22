@@ -22,7 +22,8 @@ END_VAR
       <ST><![CDATA[Hearbeat := Hearbeat+1;
 GVL_IO.lrHotendTemp := GVL_IO.lrRawTemp/10.0;
 
-PRG_ExtruderSys();
+//PRG_ExtruderSys();
+PRG_ExtruderSys_Alt();
 
 IF NOT  PRG_Init.BDONE THEN
 //IF NOT GVL_AxisCtrl.bInitDone THEN
@@ -66,6 +67,7 @@ END_IF;
       <LineId Id="256" Count="0" />
       <LineId Id="250" Count="0" />
       <LineId Id="252" Count="0" />
+      <LineId Id="360" Count="0" />
       <LineId Id="265" Count="1" />
       <LineId Id="343" Count="0" />
       <LineId Id="267" Count="3" />

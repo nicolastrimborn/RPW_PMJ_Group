@@ -63,6 +63,9 @@
     <Compile Include="POUs\FB\FB_TempControl.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\FB\FB_ExtrusionSystemRev.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\MAIN.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -73,6 +76,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\Programs\PRG_ExtruderSys.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Programs\PRG_ExtruderSys_Alt.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\Programs\PRG_Init.TcPOU">

@@ -755,9 +755,9 @@
                               <d n="TypeNodeAttributesData" t="CaseInsensitiveHashtable" ckt="String" cvt="String">
                                 <v>DescriptionTextId</v>
                                 <v>TL_ElementProperties.Desc_BarOrientation</v>
+                                <v>Category</v>
+                                <v>Simple|Standard</v>
                                 <v>RebuildPropertiesOnChanges</v>
-                                <v></v>
-                                <v>UseInitValue</v>
                                 <v></v>
                                 <v>ElementOrientation</v>
                                 <v></v>
@@ -765,8 +765,8 @@
                                 <v>False</v>
                                 <v>DisplayTextId</v>
                                 <v>TL_ElementProperties.Orientation</v>
-                                <v>Category</v>
-                                <v>Simple|Standard</v>
+                                <v>UseInitValue</v>
+                                <v></v>
                                 <v>''NORMAL__COMMENT</v>
                                 <v> The orientation of the bar
  The property tree needs a rebuilt after change of this component, because the
@@ -817,14 +817,14 @@
                                 <v> The running direction if the orientation is horizontal</v>
                                 <v>DescriptionTextId</v>
                                 <v>TL_ElementProperties.Desc_RunningDirection</v>
-                                <v>Category</v>
-                                <v>Simple|Standard</v>
                                 <v>DisplayTextId</v>
                                 <v>TL_ElementProperties.RunningDirection</v>
                                 <v>VisibleIf</v>
                                 <v>ValueOfNodeWithAttr,ElementOrientation,String,HORIZONTAL</v>
                                 <v>UseInitValue</v>
                                 <v></v>
+                                <v>Category</v>
+                                <v>Simple|Standard</v>
                               </d>
                               <v n="ConvDone">true</v>
                             </o>
@@ -868,14 +868,14 @@
                                 <v> The running direction if the orientation is vertical.</v>
                                 <v>DescriptionTextId</v>
                                 <v>TL_ElementProperties.Desc_RunningDirection</v>
-                                <v>Category</v>
-                                <v>Simple|Standard</v>
                                 <v>DisplayTextId</v>
                                 <v>TL_ElementProperties.RunningDirection</v>
                                 <v>VisibleIf</v>
                                 <v>ValueOfNodeWithAttr,ElementOrientation,String,VERTICAL</v>
                                 <v>UseInitValue</v>
                                 <v></v>
+                                <v>Category</v>
+                                <v>Simple|Standard</v>
                               </d>
                               <v n="ConvDone">true</v>
                             </o>
@@ -908,8 +908,6 @@
                               <d n="TypeNodeAttributesData" t="CaseInsensitiveHashtable" ckt="String" cvt="String">
                                 <v>DescriptionTextId</v>
                                 <v>TL_ElementProperties.Desc_BarOptimumSize</v>
-                                <v>Category</v>
-                                <v>Standard</v>
                                 <v>DisplayTextId</v>
                                 <v>TL_ElementProperties.BarOptimumSize</v>
                                 <v>VisibleIf</v>
@@ -918,6 +916,8 @@
                                 <v> not visible for flat style and white style</v>
                                 <v>UseInitValue</v>
                                 <v></v>
+                                <v>Category</v>
+                                <v>Standard</v>
                               </d>
                               <v n="ConvDone">true</v>
                             </o>
@@ -1166,12 +1166,12 @@
                                       <v>TL_ElementProperties.Color</v>
                                       <v>EditorType</v>
                                       <v>Color</v>
-                                      <v>UseInitValue</v>
-                                      <v></v>
-                                      <v>''DOCU__COMMENT</v>
-                                      <v> The background color of the color area</v>
                                       <v>DescriptionTextId</v>
                                       <v>TL_ElementProperties.Desc_AreaColor</v>
+                                      <v>''DOCU__COMMENT</v>
+                                      <v> The background color of the color area</v>
+                                      <v>UseInitValue</v>
+                                      <v></v>
                                     </d>
                                     <v n="ConvDone">false</v>
                                   </o>
@@ -1316,12 +1316,12 @@
                                         <v>TL_ElementProperties.Color</v>
                                         <v>EditorType</v>
                                         <v>Color</v>
-                                        <v>UseInitValue</v>
-                                        <v></v>
-                                        <v>''DOCU__COMMENT</v>
-                                        <v> The background color of the color area</v>
                                         <v>DescriptionTextId</v>
                                         <v>TL_ElementProperties.Desc_AreaColor</v>
+                                        <v>''DOCU__COMMENT</v>
+                                        <v> The background color of the color area</v>
+                                        <v>UseInitValue</v>
+                                        <v></v>
                                       </d>
                                       <v n="ConvDone">false</v>
                                     </o>
@@ -1517,20 +1517,6 @@
                     <v n="Name">"Tap"</v>
                     <v n="Description">"Configure the tapping of a Boolean variable"</v>
                   </o>
-                  <o>
-                    <n n="DescriptionTree" />
-                    <o n="VisualElemMemberList" t="VisualElemMemberList">
-                      <l n="VisualElemMemberList" t="VisualElemMemberCollection" cet="VisualElemMember">
-                        <o>
-                          <v n="Id">1186196937L</v>
-                          <v n="Value">"GVL_AxisCtrl.bExtruderSystemEnable"</v>
-                        </o>
-                      </l>
-                    </o>
-                    <v n="SignatureName">"Visu_ToggleInput"</v>
-                    <v n="Name">"Toggle"</v>
-                    <v n="Description">"Configure the toggling of a Boolean variable"</v>
-                  </o>
                 </a>
                 <l n="Elements" t="ArrayList" />
                 <n n="VisualElementDescription" />
@@ -1687,7 +1673,14 @@
                 <v n="VisualElementIdentifier">"GenElemInst_17"</v>
                 <n n="VisualElementOfflinePaintCommands" />
                 <n n="VisualElementFrameInformation" />
-                <d n="VisualElementInputActions" t="Hashtable" />
+                <d n="VisualElementInputActions" t="Hashtable" ckt="String" cvt="IInputAction[]">
+                  <v>OnMouseDown</v>
+                  <a cet="STSnippetInputAction">
+                    <o>
+                      <v n="STSnippet">"GVL_AxisCtrl.bExtruderSystemEnable := FALSE;"</v>
+                    </o>
+                  </a>
+                </d>
                 <v n="VisualElementIdentification">{60ab2ee3-4ae9-416c-bd68-5eb28a887a5c}</v>
                 <v n="VisualElementOwningObjectGuid">{57b130c3-747d-42f7-870c-37d094ed37fa}</v>
                 <a n="LMGuids" et="Guid" />
@@ -3523,10 +3516,10 @@
               <d n="FbMethods" t="CaseInsensitiveHashtable_1" ckt="String" cvt="Guid">
                 <v>FB_Init</v>
                 <v>6202ff9f-d3e8-4bb2-9063-6f1b96aca661</v>
-                <v>FB_Exit</v>
-                <v>586a9a09-d9a5-4034-babe-87d68d5023c9</v>
                 <v>FB_Reinit</v>
                 <v>3441f110-1808-4e40-bfa4-232994c6c07b</v>
+                <v>FB_Exit</v>
+                <v>586a9a09-d9a5-4034-babe-87d68d5023c9</v>
               </d>
               <v n="FbName">"NotImportant"</v>
               <v n="FbGuid">{f917505c-0c43-45c5-a9dd-a8d7fd150aae}</v>
@@ -3622,6 +3615,7 @@
         <Type n="Guid">System.Guid</Type>
         <Type n="Hashtable">System.Collections.Hashtable</Type>
         <Type n="HotkeyConfiguration">{6b108d46-58af-4e41-a3f4-174d8f160cc4}</Type>
+        <Type n="IInputAction[]">_3S.CoDeSys.VisualElem.IInputAction[], VisualElem, Version=3.5.13.0, Culture=neutral, PublicKeyToken=null</Type>
         <Type n="InputBoxInputAction">{e8e7e747-f76f-4dee-ab1c-b9637e41ac26}</Type>
         <Type n="InputBoxInputAction[]">_3S.CoDeSys.VisualElem.InputBoxInputAction[], VisualElem.plugin, Version=3.5.13.30, Culture=neutral, PublicKeyToken=null</Type>
         <Type n="Int16">System.Int16</Type>
@@ -3632,6 +3626,7 @@
         <Type n="Single">System.Single</Type>
         <Type n="String">System.String</Type>
         <Type n="StructuredTypeNode">{503c5b2e-e80e-4ee7-ae00-c5b93a62b1aa}</Type>
+        <Type n="STSnippetInputAction">{6302d3fe-6ea5-4c42-819a-a9734a133b3d}</Type>
         <Type n="TextDocument">{f3878285-8e4f-490b-bb1b-9acbb7eb04db}</Type>
         <Type n="TextLine">{a5de0b0b-1cb5-4913-ac21-9d70293ec00d}</Type>
         <Type n="TypeClass">{16f7aa24-038f-444e-9d81-b001bc091d35}</Type>

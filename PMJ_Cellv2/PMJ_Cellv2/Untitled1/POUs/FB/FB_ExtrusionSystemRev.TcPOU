@@ -1,0 +1,264 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.2">
+  <POU Name="FB_ExtrusionSystemRev" Id="{84e7df3e-7b62-404d-8a1c-2d9f0ad66415}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_ExtrusionSystemRev
+VAR_INPUT
+	bEnable 			: BOOL;
+	bReset 				: BOOL;
+	bExecuteExtrude		: BOOL;
+	lrMMtoExtrude  		: LREAL;
+	lrFeedrate   		: LREAL;
+	lrHotEndTempSP		: LREAL;
+	lrHotEndTemp 		: LREAL;	
+END_VAR
+VAR_OUTPUT
+	sStateDesc			: STRING;
+	bExtrudeDone 	    : BOOL;
+	bError				: BOOL;
+	bExtruderReady		: BOOL;
+	bExtruderMoving		: BOOL;
+	iHotEndPowerLevel 	: INT;
+	bFan				: BOOL;
+	bEnableHotend		: BOOL;
+END_VAR
+VAR_IN_OUT
+	ExtruderAxisRef			: AXIS_REF;
+END_VAR
+VAR
+	nState					: UDINT := 0;
+	nErrorState				: UDINT;
+	eErrorId				: UDINT;
+	
+	RTrig_Reset				: R_TRIG;
+	MC_Power_Extruder		: MC_Power;
+	MC_Reset_Extruder 		: MC_Reset;
+	MC_ZeroPos_Extruder		: MC_SetPosition;
+	MC_Stop_Extruder 		: MC_Stop;
+	MC_Move_Rel_Extruder 	: MC_MoveRelative;
+	fbHotendTempController 	: FB_TempControl;
+	
+	bHeating				: BOOL := FALSE;
+	bAtTempSP				: BOOL := FALSE;
+	bMoveRelative			: BOOL := FALSE;
+	fbSetPos: MC_SetPosition;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[ExtruderAxisRef.ReadStatus();
+RTrig_Reset(CLK:=bReset , Q=> );
+
+MC_Power_Extruder(
+	Axis:= ExtruderAxisRef, 
+	Enable:= bExtruderReady, 
+	Enable_Positive:= bExtruderReady, 
+	Enable_Negative:= bExtruderReady, 
+	Override:= , 
+	BufferMode:= , 
+	Options:= , 
+	Status=> , 
+	Busy=> , 
+	Active=> , 
+	Error=> bError, 
+	ErrorID=> eErrorId);
+	
+fbHotendTempController(
+		bEnableHeater:= bEnableHotEnd, 
+		lrPV:= lrHotendTemp, 
+		lrSP:= lrHotEndTempSP, 
+		iOutput=> iHotEndPowerLevel, 
+		bError=>bError, 
+		eErrorId=> eErrorId,
+		bEnableHotend=> bEnableHotend);
+		
+MC_Move_Rel_Extruder(
+	Axis:= ExtruderAxisRef, 
+	Execute:= bMoveRelative, 
+	Distance:= lrMMtoExtrude, 
+	Velocity:= lrFeedrate, 
+	Acceleration:= , 
+	Deceleration:= , 
+	Jerk:= , 
+	BufferMode:= , 
+	Options:= , 
+	Done=> bExtrudeDone, 
+	Busy=> , 
+	Active=> bExtruderMoving , 
+	CommandAborted=> , 
+	Error=> bError, 
+	ErrorID=> eErrorId);
+	
+//IF NOT bEnable THEN
+//	nState := 10;
+//END_IF
+
+IF RTrig_Reset.CLK THEN
+	nState := 100;
+END_IF
+
+IF lrHotendTemp >= (lrHotEndTempSP*0.98) THEN
+	bAtTempSP := TRUE;
+ELSE
+	bAtTempSP := FALSE;
+END_IF
+
+	
+CASE nState OF
+	0:	// init
+		sStateDesc := 'FB INIT';
+		bExtrudeDone := FALSE;
+		bError := FALSE;
+		bExtruderMoving := FALSE;
+		//GVL_AxisCtrl.bExtruder_AxisAbsMove := FALSE;
+		iHotEndPowerLevel := 0;
+		bFan := FALSE;
+		nState := 10;
+		
+	10: // idle
+		sStateDesc := 'IDLE';
+		iHotEndPowerLevel := 0;
+		bEnableHotEnd := FALSE;
+		bExtruderReady := FALSE;
+		bFan := FALSE;
+		IF bEnable THEN 
+			nState := 20;
+		END_IF		
+
+	20: // Turn on heater
+		IF NOT bEnable THEN
+			nState := 10;
+		END_IF
+		
+		sStateDesc := 'START HEATING';
+		bFan := TRUE;			
+		bEnableHotend := TRUE;
+		nState := 30;
+		
+	30: // Heating
+		IF NOT bEnable THEN
+			nState := 10;
+		END_IF
+		sStateDesc := 'HEATING TO REACH OPERATING TEMP';
+		IF bAtTempSP THEN
+			nState := 40;
+		ELSE
+			bExtruderReady := FALSE;	
+		END_IF
+		
+	40: // Ready to Extrude
+		IF NOT bEnable THEN
+			nState := 10;
+		END_IF
+		sStateDesc := 'WAITING FOR MOVE COMMAND';
+		bExtruderReady := TRUE;
+		IF bExecuteExtrude THEN;
+			nState := 50;
+		END_IF
+		
+	50: // Move Relative
+		IF NOT bEnable THEN
+			nState := 10;
+		END_IF
+		sStateDesc := 'EXTRUDING';
+		bMoveRelative := FALSE;
+		IF bExecuteExtrude THEN
+			bMoveRelative := TRUE;	
+		ELSIF bExtrudeDone THEN
+			bExtrudeDone := FALSE;
+			nState := 40;
+		END_IF
+	
+	100: // Reset
+		sStateDesc := 'RESET EXTRUDER AXIS';
+		MC_Reset_Extruder(Axis:=ExtruderAxisRef, Execute:=TRUE);
+		//MC_ZeroPos_Extruder(Axis:=ExtruderAxisRef,
+//							 Execute:=TRUE, Position:=0,Mode:=FALSE );
+							// MC_ZeroPos_Extruder.Options.ClearPositionLag);
+		IF MC_Reset_Extruder.Done AND  MC_ZeroPos_Extruder.Done THEN
+			nState := 10;
+		END_IF
+	999: //Error	
+	
+		
+	ELSE
+	sStateDesc := 'INVALID STATE';
+	nState := 0;
+END_CASE
+	]]></ST>
+    </Implementation>
+    <LineIds Name="FB_ExtrusionSystemRev">
+      <LineId Id="37" Count="0" />
+      <LineId Id="128" Count="0" />
+      <LineId Id="38" Count="38" />
+      <LineId Id="9" Count="0" />
+      <LineId Id="79" Count="0" />
+      <LineId Id="83" Count="0" />
+      <LineId Id="82" Count="0" />
+      <LineId Id="80" Count="0" />
+      <LineId Id="130" Count="3" />
+      <LineId Id="157" Count="2" />
+      <LineId Id="161" Count="1" />
+      <LineId Id="156" Count="0" />
+      <LineId Id="129" Count="0" />
+      <LineId Id="84" Count="2" />
+      <LineId Id="89" Count="2" />
+      <LineId Id="116" Count="0" />
+      <LineId Id="92" Count="2" />
+      <LineId Id="88" Count="0" />
+      <LineId Id="101" Count="1" />
+      <LineId Id="108" Count="6" />
+      <LineId Id="107" Count="0" />
+      <LineId Id="118" Count="0" />
+      <LineId Id="117" Count="0" />
+      <LineId Id="245" Count="1" />
+      <LineId Id="244" Count="0" />
+      <LineId Id="247" Count="0" />
+      <LineId Id="150" Count="0" />
+      <LineId Id="134" Count="0" />
+      <LineId Id="119" Count="0" />
+      <LineId Id="142" Count="0" />
+      <LineId Id="135" Count="1" />
+      <LineId Id="249" Count="1" />
+      <LineId Id="248" Count="0" />
+      <LineId Id="143" Count="0" />
+      <LineId Id="145" Count="0" />
+      <LineId Id="147" Count="0" />
+      <LineId Id="164" Count="1" />
+      <LineId Id="137" Count="0" />
+      <LineId Id="151" Count="1" />
+      <LineId Id="252" Count="1" />
+      <LineId Id="251" Count="0" />
+      <LineId Id="191" Count="0" />
+      <LineId Id="188" Count="0" />
+      <LineId Id="154" Count="0" />
+      <LineId Id="187" Count="0" />
+      <LineId Id="167" Count="0" />
+      <LineId Id="172" Count="1" />
+      <LineId Id="255" Count="1" />
+      <LineId Id="254" Count="0" />
+      <LineId Id="190" Count="0" />
+      <LineId Id="180" Count="0" />
+      <LineId Id="175" Count="0" />
+      <LineId Id="181" Count="0" />
+      <LineId Id="195" Count="0" />
+      <LineId Id="197" Count="0" />
+      <LineId Id="196" Count="0" />
+      <LineId Id="186" Count="0" />
+      <LineId Id="193" Count="0" />
+      <LineId Id="138" Count="0" />
+      <LineId Id="144" Count="0" />
+      <LineId Id="272" Count="0" />
+      <LineId Id="240" Count="0" />
+      <LineId Id="257" Count="0" />
+      <LineId Id="259" Count="0" />
+      <LineId Id="243" Count="0" />
+      <LineId Id="242" Count="0" />
+      <LineId Id="239" Count="0" />
+      <LineId Id="124" Count="0" />
+      <LineId Id="123" Count="0" />
+      <LineId Id="95" Count="0" />
+      <LineId Id="97" Count="2" />
+      <LineId Id="96" Count="0" />
+      <LineId Id="87" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>
