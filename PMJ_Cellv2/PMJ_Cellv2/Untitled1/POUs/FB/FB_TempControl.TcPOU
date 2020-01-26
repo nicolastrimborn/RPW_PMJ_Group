@@ -75,7 +75,7 @@ VAR
 		
 		(* control value parameters*)
 		fYMin					:= 0,				(* lower limit *)
-		fYMax					:= 30000,			(* upper limit *)
+		fYMax					:= 32000,			(* upper limit *)
 		fYManual				:= 0.0,				(* manual operation*)
 		fYOnFailure				:= 0.0,				(* control value on failure *)
 		
@@ -107,8 +107,8 @@ VAR
 		TempAbsoluteLow			:= 5.0,	
 		
 		(* internal tuning parameters *)
-		fTuneKp					:= 1.2,
-		fTuneTn					:= 2.0,
+		fTuneKp					:= 1.0,
+		fTuneTn					:= 2.5,
 		fTuneTv					:= 0.42,
 		fTuneTd					:= 0.25
 		);

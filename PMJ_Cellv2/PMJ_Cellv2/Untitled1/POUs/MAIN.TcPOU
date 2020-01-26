@@ -7,7 +7,7 @@ VAR
 	lrHotendTemp			: LREAL;
 	bEnableExtrusionSystem 	: BOOL := FALSE;
 	bResetExtrusionSystem 	: BOOL := FALSE;
-	bEnableGimbalAxis 		: BOOL := TRUE;
+	bEnableGimbalAxis 		: BOOL := FALSE;
 	
 	fUserOverride			: LREAL:= 100.0;
 	in_stItpToPlc	AT %I*:	NcToPlc_NciChannel_Ref;
@@ -20,27 +20,28 @@ END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[Hearbeat := Hearbeat+1;
+bExecSimpleNci := GVL_IO.bExcuteButton;
 GVL_IO.lrHotendTemp := GVL_IO.lrRawTemp/10.0;
 
 //PRG_ExtruderSys();
 PRG_ExtruderSys_Alt();
 
-IF NOT  PRG_Init.BDONE THEN
-//IF NOT GVL_AxisCtrl.bInitDone THEN
-	PRG_Init(bExecute:=TRUE , bDone=> );
-	GVL_AxisCtrl.bEnableAxes := FALSE;
-
+//IF NOT  PRG_Init.BDONE THEN
+IF NOT GVL_AxisCtrl.bInitDone THEN
+	PRG_Init(bExecute:=TRUE , bDone=>GVL_AxisCtrl.bInitDone);
+	//GVL_AxisCtrl.bEnableAxes := FALSE;
 ELSE	(*Init done*)
-		
-	PRG_AxesEnable(
-		//bEnable:= GVL_AxisCtrl.bEnableAxes,
-		bEnable:= bEnableGimbalAxis,
-		bHalt:= GVL_AxisCtrl.bHaltAxes,
-		bReset:= GVL_AxisCtrl.bResetAxes,
-		bAxesEnabled=> GVL_AxisCtrl.bRun, 
-		bFaultActive=> , 
-		wEnabledStates=> , 
-		wFaultStates=> );
+
+PRG_AxesEnable(
+	bEnable:= GVL_AxisCtrl.bEnableGimbal,
+	bHalt:= GVL_AxisCtrl.bHaltAxes,
+	bReset:= GVL_AxisCtrl.bResetAxes,
+	bAxesEnabled=> GVL_AxisCtrl.bAllAxisEnabled, 
+	bFaultActive=> , 
+	wEnabledStates=> , 
+	wFaultStates=> );
+	
+PRG_AxisControl();
 		
 ItpSetOverridePercent(fOverridePercent:=fUserOverride , sPlcToNci:=out_stPlcToItp);
 
@@ -64,23 +65,22 @@ END_IF;
     </Implementation>
     <LineIds Name="MAIN">
       <LineId Id="2" Count="0" />
+      <LineId Id="379" Count="0" />
       <LineId Id="256" Count="0" />
       <LineId Id="250" Count="0" />
       <LineId Id="252" Count="0" />
       <LineId Id="360" Count="0" />
-      <LineId Id="265" Count="1" />
-      <LineId Id="343" Count="0" />
-      <LineId Id="267" Count="3" />
-      <LineId Id="264" Count="0" />
-      <LineId Id="279" Count="2" />
-      <LineId Id="310" Count="0" />
-      <LineId Id="282" Count="3" />
-      <LineId Id="278" Count="0" />
+      <LineId Id="265" Count="0" />
+      <LineId Id="460" Count="4" />
+      <LineId Id="474" Count="0" />
+      <LineId Id="440" Count="0" />
+      <LineId Id="442" Count="6" />
+      <LineId Id="491" Count="0" />
+      <LineId Id="493" Count="0" />
       <LineId Id="293" Count="1" />
       <LineId Id="317" Count="9" />
+      <LineId Id="455" Count="2" />
       <LineId Id="303" Count="0" />
-      <LineId Id="273" Count="1" />
-      <LineId Id="276" Count="0" />
       <LineId Id="247" Count="1" />
       <LineId Id="228" Count="0" />
       <LineId Id="127" Count="0" />

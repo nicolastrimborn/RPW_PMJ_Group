@@ -66,14 +66,14 @@ END_VAR
                           <v n="LValue">false</v>
                           <v n="Boolean">false</v>
                           <v n="IsInstance">true</v>
-                          <v n="Id">62L</v>
+                          <v n="Id">83L</v>
                         </o>
                         <o n="OutputItems" t="OutputItemList">
                           <l2 n="OutputItems" cet="Operand">
                             <n />
                             <o>
-                              <v n="Operand">""</v>
-                              <v n="Type">"STRING"</v>
+                              <v n="Operand">"GVL_AxisCtrl.bExtruder_AxisAbsMoveDone"</v>
+                              <v n="Type">"BOOL"</v>
                               <v n="Comment">""</v>
                               <v n="SymbolComment">""</v>
                               <v n="Address">""</v>
@@ -88,7 +88,7 @@ END_VAR
                               <v n="Id">44L</v>
                             </o>
                             <o>
-                              <v n="Operand">""</v>
+                              <v n="Operand">"GVL_AxisCtrl.bExtruderError"</v>
                               <v n="Type">"BOOL"</v>
                               <v n="Comment">""</v>
                               <v n="SymbolComment">""</v>
@@ -120,8 +120,8 @@ END_VAR
                               <v n="Id">10L</v>
                             </o>
                             <o>
-                              <v n="Operand">""</v>
-                              <v n="Type">"INT"</v>
+                              <v n="Operand">"GVL_AxisCtrl.bExtruder_AxisAbsMoveAct"</v>
+                              <v n="Type">"BOOL"</v>
                               <v n="Comment">""</v>
                               <v n="SymbolComment">""</v>
                               <v n="Address">""</v>
@@ -182,6 +182,22 @@ END_VAR
                               <v n="Boolean">false</v>
                               <v n="IsInstance">false</v>
                               <v n="Id">55L</v>
+                            </o>
+                            <o>
+                              <v n="Operand">""</v>
+                              <v n="Type">"INT"</v>
+                              <v n="Comment">""</v>
+                              <v n="SymbolComment">""</v>
+                              <v n="Address">""</v>
+                              <o n="Flags" t="Flags">
+                                <v n="Flags">0</v>
+                                <v n="Fixed">false</v>
+                                <v n="Extensible">false</v>
+                              </o>
+                              <v n="LValue">true</v>
+                              <v n="Boolean">false</v>
+                              <v n="IsInstance">false</v>
+                              <v n="Id">82L</v>
                             </o>
                           </l2>
                         </o>
@@ -270,6 +286,25 @@ END_VAR
                           </o>
                           <o>
                             <o n="Operand" t="Operand">
+                              <v n="Operand">"GVL_AxisCtrl.lrExtruder_Retraction"</v>
+                              <v n="Type">"LREAL"</v>
+                              <v n="Comment">""</v>
+                              <v n="SymbolComment">""</v>
+                              <v n="Address">""</v>
+                              <o n="Flags" t="Flags">
+                                <v n="Flags">0</v>
+                                <v n="Fixed">false</v>
+                                <v n="Extensible">false</v>
+                              </o>
+                              <v n="LValue">false</v>
+                              <v n="Boolean">false</v>
+                              <v n="IsInstance">false</v>
+                              <v n="Id">79L</v>
+                            </o>
+                            <v n="Id">78L</v>
+                          </o>
+                          <o>
+                            <o n="Operand" t="Operand">
                               <v n="Operand">"GVL_AxisCtrl.lrExtruder_AxisVelocity"</v>
                               <v n="Type">"LREAL"</v>
                               <v n="Comment">""</v>
@@ -351,6 +386,7 @@ END_VAR
                             <v>bReset</v>
                             <v>bExecuteExtrude</v>
                             <v>lrMMtoExtrude</v>
+                            <v>lrRetractionLength</v>
                             <v>lrFeedrate</v>
                             <v>lrHotEndTempSP</v>
                             <v>lrHotEndTemp</v>
@@ -360,6 +396,7 @@ END_VAR
                             <v>BOOL</v>
                             <v>BOOL</v>
                             <v>BOOL</v>
+                            <v>LREAL</v>
                             <v>LREAL</v>
                             <v>LREAL</v>
                             <v>LREAL</v>
@@ -377,6 +414,7 @@ END_VAR
                             <v>iHotEndPowerLevel</v>
                             <v>bFan</v>
                             <v>bEnableHotend</v>
+                            <v>eErrorId</v>
                           </l2>
                           <l2 n="Types" cet="String">
                             <v>STRING</v>
@@ -387,6 +425,7 @@ END_VAR
                             <v>INT</v>
                             <v>BOOL</v>
                             <v>BOOL</v>
+                            <v>UDINT</v>
                           </l2>
                         </o>
                         <v n="CallType" t="Operator">FunctionBlock</v>
@@ -395,7 +434,7 @@ END_VAR
                         <n n="STSnippet" />
                         <v n="ContainsExtensibleInputs">false</v>
                         <v n="ProvidesSTSnippet">false</v>
-                        <v n="Id">63L</v>
+                        <v n="Id">84L</v>
                       </o>
                       <v n="Id">71L</v>
                     </o>

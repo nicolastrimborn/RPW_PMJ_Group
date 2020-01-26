@@ -16,8 +16,33 @@
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
+              <v n="TextID">"56"</v>
+              <v n="TextDefault">"+"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"866"</v>
+              <v n="TextDefault">"-"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"636"</v>
+              <v n="TextDefault">"Drive Online"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
               <v n="TextID">"395"</v>
               <v n="TextDefault">"Enable Extruder System"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"514"</v>
+              <v n="TextDefault">"Enable Motors"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"271"</v>
+              <v n="TextDefault">"Execute"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
@@ -63,6 +88,11 @@
             <o>
               <v n="TextID">"524"</v>
               <v n="TextDefault">"Feed Rate:  %10.1f mm/s"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"430"</v>
+              <v n="TextDefault">"Go To Zero"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
@@ -151,8 +181,38 @@
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
+              <v n="TextID">"724"</v>
+              <v n="TextDefault">"Th1: %10.1f"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"737"</v>
+              <v n="TextDefault">"Th1:%10.1f"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"196"</v>
+              <v n="TextDefault">"Th2: %10.1f"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"831"</v>
+              <v n="TextDefault">"TH_1"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"483"</v>
+              <v n="TextDefault">"TH_2"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
               <v n="TextID">"332"</v>
               <v n="TextDefault">"Vel:%10.1f"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"168"</v>
+              <v n="TextDefault">"Zero Axes"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
           </l>

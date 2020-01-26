@@ -3,11 +3,12 @@
   <GVL Name="GVL_IO" Id="{2dc9d395-068a-4ece-b874-33348ddfb31a}">
     <Declaration><![CDATA[{attribute 'qualified_only'}
 VAR_GLOBAL
-	lrRawTemp AT %I*: INT;
-	lrHotendTemp : LREAL;
-	iHotendPowerLevel AT %Q*: INT;
-	bEnableHotend AT %Q*: BOOL;
-	bFan AT %Q*: BOOL;
+	lrRawTemp AT %I*			: INT;
+	lrHotendTemp 				: LREAL;
+	iHotendPowerLevel AT %Q*	: INT;
+	bEnableHotend AT %Q*		: BOOL;
+	bFan AT %Q*					: BOOL;
+	bExcuteButton AT %I*		: BOOL;
 END_VAR]]></Declaration>
   </GVL>
 </TcPlcObject>

@@ -54,7 +54,7 @@ MC_Power_Extruder(
 	Status=> , 
 	Busy=> , 
 	Active=> , 
-	Error=> , 
+	Error=> bError, 
 	ErrorID=> eErrorId);
 	
 fbHotendTempController(
@@ -62,7 +62,7 @@ fbHotendTempController(
 		lrPV:= lrHotendTemp, 
 		lrSP:= lrHotEndTempSP, 
 		iOutput=> iHotEndPowerLevel, 
-		bError=>, 
+		bError=> bError, 
 		eErrorId=> eErrorId,
 		bEnableHotend=> bEnableHotend);
 		
@@ -80,8 +80,8 @@ MC_Move_Rel_Extruder(
 	Busy=> , 
 	Active=> GVL_AxisCtrl.bExtruder_AxisAbsMoveAct , 
 	CommandAborted=> , 
-	Error=> , 
-	ErrorID=> );
+	Error=> bError, 
+	ErrorID=> eErrorId);
 
 IF bReset THEN
 	nState := 30;

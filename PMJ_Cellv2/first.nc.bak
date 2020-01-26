@@ -1,0 +1,7 @@
+N10 G0 X0 Y0 (Zero Axes)
+N20 M05 (Handshake)
+N30 G01 X1000 Y1000 F20000  (Linear interpolation)
+% N40 G02 X500 Y1000 I250 J0
+N50 G01 Y0 (Zero Y Axes)
+N60 G01 X0 (Zero X Axes)
+M30 (End Program)

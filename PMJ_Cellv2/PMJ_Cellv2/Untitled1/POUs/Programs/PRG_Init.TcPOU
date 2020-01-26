@@ -14,12 +14,11 @@ VAR
 	fbSetVelocityProfile_Th1: FB_SetVelocityProfile;
 	fbSetVelocityProfile_Th2: FB_SetVelocityProfile;
 
-	R_DoneTrigger_Th1	: R_TRIG;	(*Bus and controllers has been enabled*)
-	R_DoneTrigger_Th2	: R_TRIG;
+	R_DoneTrigger_Th1		: R_TRIG;	(*Bus and controllers has been enabled*)
+	R_DoneTrigger_Th2		: R_TRIG;
 	
-	bSetVeloProfDone		: BOOL := FALSE;
-	bStartBusDone			: BOOL := FALSE;
-	bBusEnabled				: BOOL;	(*Bus and controllers are enabled*)
+	bSetVeloProfDone		: BOOL	:= FALSE;
+	bBusEnabled				: BOOL	:= FALSE;(*Bus and controllers are enabled*)
 END_VAR]]></Declaration>
     <Implementation>
       <SFC>
@@ -336,7 +335,7 @@ END_VAR]]></Declaration>
                         <o>
                           <v n="AttributeId">{38391c6d-6d4a-42f8-8ee7-9f45e5adafa8}</v>
                           <o n="Value" t="StringValue">
-                            <v n="Value">"GVL_AxisCtrl.bInitDone"</v>
+                            <v n="Value">"bBusEnabled"</v>
                             <v n="DefaultValue">""</v>
                           </o>
                           <v n="Id">38L</v>
@@ -1134,11 +1133,14 @@ fbSetVelocityProfile_Th2(
 	Err=> , 
 	ErrNo=> );
 	
-R_DoneTrigger_Th1(CLK:=fbSetVelocityProfile_Th1.Done , Q=> );
-R_DoneTrigger_Th2(CLK:=fbSetVelocityProfile_Th2.Done , Q=> );
+//R_DoneTrigger_Th1(CLK:=fbSetVelocityProfile_Th1.Done , Q=> );
+//R_DoneTrigger_Th2(CLK:=fbSetVelocityProfile_Th2.Done , Q=> );
 
-IF R_DoneTrigger_Th1.Q AND R_DoneTrigger_Th2.Q THEN
+//IF R_DoneTrigger_Th1.Q AND R_DoneTrigger_Th2. THEN
+IF fbSetVelocityProfile_Th1.Done AND fbSetVelocityProfile_Th1.Done THEN
 	bSetVeloProfDone := TRUE;
+ELSE
+	bSetVeloProfDone := FALSE;
 END_IF;]]></ST>
       </Implementation>
     </Action>
@@ -1167,13 +1169,12 @@ fbEnableNetwork_Th2(
 	
 
 R_DoneTrigger_Th1(CLK:=fbEnableNetwork_Th1.bDone , Q=> );
-R_DoneTrigger_Th1(CLK:=fbEnableNetwork_Th2.bDone , Q=> );
+R_DoneTrigger_Th2(CLK:=fbEnableNetwork_Th2.bDone , Q=> );
 
-IF R_DoneTrigger_Th1.Q AND R_DoneTrigger_Th1.Q THEN
+IF R_DoneTrigger_Th1.Q AND R_DoneTrigger_Th2.Q THEN
 	bBusEnabled := TRUE;
-	GVL_AxisCtrl.bInitDone := TRUE;
 ELSE
-	GVL_AxisCtrl.bInitDone := FALSE;
+	bBusEnabled := FALSE;
 END_IF;
 
 (*Initialisation completed*)
@@ -1289,13 +1290,14 @@ END_IF;
       <LineId Id="1" Count="0" />
     </LineIds>
     <LineIds Name="PRG_Init.SetVeloProfile_Action">
-      <LineId Id="2" Count="24" />
+      <LineId Id="2" Count="23" />
+      <LineId Id="29" Count="0" />
+      <LineId Id="26" Count="2" />
       <LineId Id="1" Count="0" />
     </LineIds>
     <LineIds Name="PRG_Init.StartBus_Action">
-      <LineId Id="2" Count="27" />
-      <LineId Id="34" Count="1" />
-      <LineId Id="30" Count="3" />
+      <LineId Id="2" Count="26" />
+      <LineId Id="30" Count="5" />
       <LineId Id="1" Count="0" />
     </LineIds>
   </POU>

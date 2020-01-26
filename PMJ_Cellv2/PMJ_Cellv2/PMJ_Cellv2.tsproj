@@ -1869,10 +1869,15 @@ External Setpoint Generation:
 					<Name>Axis Th1</Name>
 					<AxisPara>
 						<General UnitName="°"/>
-						<OtherSettings AllowMotionCmdToSlave="true"/>
+						<Dynamic AccelerationMaximum="1500"/>
+						<Velo SlowManual="60" FastManual="80" Maximum="200"/>
+						<OtherSettings AllowMotionCmdToSlave="true" PulseDistancePos="2" PulseDistanceNeg="2"/>
 					</AxisPara>
 					<Encoder Name="Enc" EncType="16">
-						<EncPara ScaleFactorNumerator="0.001373291015625" MaxCount="#x0000ffff"/>
+						<EncPara ScaleFactorNumerator="0.000457763671875" MaxCount="#x0000ffff">
+							<SoftEndMinControl Enable="true" Range="-16"/>
+							<SoftEndMaxControl Enable="true" Range="35"/>
+						</EncPara>
 						<Vars VarGrpType="1">
 							<Name>Inputs</Name>
 							<Var>
@@ -1931,7 +1936,7 @@ External Setpoint Generation:
 					</Encoder>
 					<Drive Name="Drive" DrvType="5">
 						<DrvPara>
-							<Analog TorqueSetpointScale="10" ScaleFactorActTorque="0.1"/>
+							<Analog VeloReferenz="220" TorqueSetpointScale="10" ScaleFactorActTorque="0.1"/>
 							<TimeComp TaskDelayCycles="1"/>
 						</DrvPara>
 						<Vars VarGrpType="1">
@@ -2029,10 +2034,11 @@ External Setpoint Generation:
 					<Name>Axis Th2</Name>
 					<AxisPara>
 						<General UnitName="°"/>
-						<OtherSettings AllowMotionCmdToSlave="true"/>
+						<Velo SlowManual="60" FastManual="100" Maximum="200"/>
+						<OtherSettings AllowMotionCmdToSlave="true" PulseDistancePos="2" PulseDistanceNeg="2"/>
 					</AxisPara>
 					<Encoder Name="Enc" EncType="16">
-						<EncPara ScaleFactorNumerator="0.001373291015625" MaxCount="#x0000ffff"/>
+						<EncPara ScaleFactorNumerator="0.000457763671875" MaxCount="#x0000ffff"/>
 						<Vars VarGrpType="1">
 							<Name>Inputs</Name>
 							<Var>
@@ -2091,7 +2097,7 @@ External Setpoint Generation:
 					</Encoder>
 					<Drive Name="Drive" DrvType="5">
 						<DrvPara>
-							<Analog TorqueSetpointScale="10" ScaleFactorActTorque="0.1"/>
+							<Analog VeloReferenz="220" TorqueSetpointScale="10" ScaleFactorActTorque="0.1"/>
 							<TimeComp TaskDelayCycles="1"/>
 						</DrvPara>
 						<Vars VarGrpType="1">
@@ -2190,8 +2196,8 @@ External Setpoint Generation:
 				<Axis Id="3" CreateSymbols="true" AxisType="1">
 					<Name>Axis Extruder</Name>
 					<AxisPara>
-						<Dynamic AccelerationMaximum="167" Acceleration="167"/>
-						<Velo RefSearch="10" RefSync="20" SlowManual="10" FastManual="20" Maximum="20"/>
+						<Dynamic AccelerationMaximum="168" Acceleration="167"/>
+						<Velo RefSearch="10" RefSync="15" SlowManual="10.1" FastManual="15" Maximum="20"/>
 						<OtherSettings AllowMotionCmdToSlave="true"/>
 					</AxisPara>
 					<Encoder Name="Enc" EncType="1">
@@ -3095,6 +3101,10 @@ External Setpoint Generation:
 						<Var>
 							<Name>GVL_IO.lrRawTemp</Name>
 							<Type>INT</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.bExcuteButton</Name>
+							<Type>BOOL</Type>
 						</Var>
 						<Var>
 							<Name>GVL_NC.Extruder_AXIS.NcToPlc</Name>
@@ -4717,6 +4727,9 @@ Slave-Mode:
 			</OwnerB>
 			<OwnerB Name="TIID^Device 2 (EtherCAT)^Term 17 (EK1100)^Term 19 (EL3202)">
 				<Link VarA="PlcTask Inputs^GVL_IO.lrRawTemp" VarB="RTD Inputs Channel 1^Value"/>
+			</OwnerB>
+			<OwnerB Name="TIID^Device 2 (EtherCAT)^Term 17 (EK1100)^Term 20 (EL1004)">
+				<Link VarA="PlcTask Inputs^GVL_IO.bExcuteButton" VarB="Channel 1^Input"/>
 			</OwnerB>
 			<OwnerB Name="TIID^Device 2 (EtherCAT)^Term 17 (EK1100)^Term 22 (EL2004)">
 				<Link VarA="PlcTask Outputs^GVL_IO.bFan" VarB="Channel 1^Output"/>

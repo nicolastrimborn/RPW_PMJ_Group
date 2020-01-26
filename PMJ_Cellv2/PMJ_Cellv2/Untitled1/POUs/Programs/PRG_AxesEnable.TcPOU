@@ -16,7 +16,7 @@ END_VAR
 VAR
 	fbEnableAxis_Th1: FB_EnableAxis;
 	fbEnableAxis_Th2: FB_EnableAxis;
-	wMaskForAxes	: WORD := 16#01;		(*Mask for active axes in configuration*)
+	wMaskForAxes	: WORD := 16#03;		(*Mask for active axes in configuration*)
 END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[fbEnableAxis_Th1(
@@ -41,7 +41,7 @@ fbEnableAxis_Th2(
 	bEnableNeg:= TRUE,
 	Override:= 100,
 	AxisRef := GVL_NC.Th2_AXIS,
-	bDriveEnabled=> wEnabledStates.0,
+	bDriveEnabled=> wEnabledStates.1,
 	bFaultActive=> wFaultStates.0,
 	wControl=>GVL_AxisCtrl.AX2_diControlWord);
 

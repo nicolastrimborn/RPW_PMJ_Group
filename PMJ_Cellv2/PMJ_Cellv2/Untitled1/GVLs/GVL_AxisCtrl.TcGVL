@@ -9,17 +9,13 @@ VAR_GLOBAL
 	lrHotEndTempSP		 		: LREAL := 200.0;
 	sExtruderSystemStatus		: STRING;
 	bExtruderReady				: BOOL;
+	bExtruderError				: BOOL;
 
-	bExtruder_AxisEnable		: BOOL;
-	bExtruder_AxisJogPos		: BOOL; 
-	bExtruder_AxisJogNeg		: BOOL;
 	bExtruder_AxisMoveHMI		: BOOL;
 	bExtruder_AxisAbsMoveAct	: BOOL;
-	bExtruder_AxisAbsMoveDone	: BOOL;
-	bExtruder_AxisStop			: BOOL;
-	bExtruder_AxisAbsMove		: BOOL;
-	
+	bExtruder_AxisAbsMoveDone	: BOOL;	
 	lrExtruder_AxisTarget		: LREAL := 10.0;
+	lrExtruder_Retraction		: LREAL := 2.0;
 	lrExtruder_AxisVelocity		: LREAL := 2.0;
 	
 	(******************** Gimbal System *******************************)
@@ -40,14 +36,25 @@ VAR_GLOBAL
 	AX2_diControlWord AT %Q*	:WORD;
 	
 	(* Combined *)
-	bRun						: BOOL	:=	FALSE;	(*Running System*)
+	bEnableGimbal				: BOOL	:=	FALSE;	(*Running System*)
 	bInitDone 					: BOOL	:=	FALSE;	(*Initialisation completed*)
-	bEnableAxes					: BOOL	:=	FALSE;	(*Enables axes*)
+	bAllAxisEnabled				: BOOL	:=	FALSE;	(*Enables axes*)
 	bHaltAxes					: BOOL	:=	FALSE;	(*Halt axes*)
 	bResetAxes					: BOOL	:=	FALSE; 	(*Reset axes*)
-		
+	bZeroAxes					: BOOL	:=	FALSE;
+	
+	(* Jog *)
+	bJogTh1_Pos					: BOOL	:=	FALSE;
+	bJogTh1_Neg					: BOOL	:=	FALSE;
+	bJogTh2_Pos					: BOOL	:=	FALSE;
+	bJogTh2_Neg					: BOOL	:=	FALSE;
+	
+	(* Move Abs *)
+	bExecuteMove 				: BOOL	:=	FALSE;
+	lrTh1Target					: LREAL := 0;
+	lrTh2Target					: LREAL := 0;
+	
 END_VAR
-
 VAR_GLOBAL CONSTANT
 	NId: STRING:= '130.230.11.184.2.1';		(*ADS ID of CANopen master*)
 	Th1_NodeAddr: INT := 3;				(*Node Address of Th1-Axis*)

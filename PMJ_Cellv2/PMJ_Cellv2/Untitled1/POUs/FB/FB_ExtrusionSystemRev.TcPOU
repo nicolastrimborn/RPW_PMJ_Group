@@ -7,6 +7,7 @@ VAR_INPUT
 	bReset 				: BOOL;
 	bExecuteExtrude		: BOOL;
 	lrMMtoExtrude  		: LREAL;
+	lrRetractionLength	: LREAL;
 	lrFeedrate   		: LREAL;
 	lrHotEndTempSP		: LREAL;
 	lrHotEndTemp 		: LREAL;	
@@ -20,6 +21,7 @@ VAR_OUTPUT
 	iHotEndPowerLevel 	: INT;
 	bFan				: BOOL;
 	bEnableHotend		: BOOL;
+	eErrorId			: UDINT;
 END_VAR
 VAR_IN_OUT
 	ExtruderAxisRef			: AXIS_REF;
@@ -27,8 +29,7 @@ END_VAR
 VAR
 	nState					: UDINT := 0;
 	nErrorState				: UDINT;
-	eErrorId				: UDINT;
-	
+		
 	RTrig_Reset				: R_TRIG;
 	MC_Power_Extruder		: MC_Power;
 	MC_Reset_Extruder 		: MC_Reset;
@@ -40,7 +41,8 @@ VAR
 	bHeating				: BOOL := FALSE;
 	bAtTempSP				: BOOL := FALSE;
 	bMoveRelative			: BOOL := FALSE;
-	fbSetPos: MC_SetPosition;
+	fbSetPos				: MC_SetPosition;
+	lrExtrudeDist  			: LREAL;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -73,7 +75,7 @@ fbHotendTempController(
 MC_Move_Rel_Extruder(
 	Axis:= ExtruderAxisRef, 
 	Execute:= bMoveRelative, 
-	Distance:= lrMMtoExtrude, 
+	Distance:= lrExtrudeDist, 
 	Velocity:= lrFeedrate, 
 	Acceleration:= , 
 	Deceleration:= , 
@@ -148,10 +150,16 @@ CASE nState OF
 		IF NOT bEnable THEN
 			nState := 10;
 		END_IF
-		sStateDesc := 'WAITING FOR MOVE COMMAND';
-		bExtruderReady := TRUE;
-		IF bExecuteExtrude THEN;
-			nState := 50;
+		
+		IF bAtTempSP THEN
+			sStateDesc := 'WAITING FOR MOVE COMMAND';
+			bExtruderReady := TRUE;
+			IF bExecuteExtrude THEN;
+				nState := 50;
+			END_IF
+		ELSE
+			bExtruderReady := FALSE;
+			nState := 30;
 		END_IF
 		
 	50: // Move Relative
@@ -159,25 +167,33 @@ CASE nState OF
 			nState := 10;
 		END_IF
 		sStateDesc := 'EXTRUDING';
-		bMoveRelative := FALSE;
-		IF bExecuteExtrude THEN
-			bMoveRelative := TRUE;	
-		ELSIF bExtrudeDone THEN
-			bExtrudeDone := FALSE;
+		lrExtrudeDist := lrMMtoExtrude;
+		bMoveRelative := TRUE;
+		IF bExtrudeDone THEN (* Requested Distance Extruded *)
+			bExtrudeDone 	:= FALSE;
+			bMoveRelative 	:= FALSE;
+			nState := 60;
+		END_IF
+	60: // Retract
+		sStateDesc := 'RETRACTING';
+		IF NOT bEnable THEN
+			nState := 10;
+		END_IF
+		lrExtrudeDist := lrRetractionLength * -1; (* Retract *)
+		bMoveRelative := TRUE;
+		IF bExtrudeDone THEN (* Requested Retraction Done *)
+			bExtrudeDone 	:= FALSE;
+			bMoveRelative 	:= FALSE;
 			nState := 40;
 		END_IF
-	
+			
 	100: // Reset
 		sStateDesc := 'RESET EXTRUDER AXIS';
 		MC_Reset_Extruder(Axis:=ExtruderAxisRef, Execute:=TRUE);
-		//MC_ZeroPos_Extruder(Axis:=ExtruderAxisRef,
-//							 Execute:=TRUE, Position:=0,Mode:=FALSE );
-							// MC_ZeroPos_Extruder.Options.ClearPositionLag);
-		IF MC_Reset_Extruder.Done AND  MC_ZeroPos_Extruder.Done THEN
+		IF MC_Reset_Extruder.Done THEN
 			nState := 10;
 		END_IF
 	999: //Error	
-	
 		
 	ELSE
 	sStateDesc := 'INVALID STATE';
@@ -227,34 +243,45 @@ END_CASE
       <LineId Id="151" Count="1" />
       <LineId Id="252" Count="1" />
       <LineId Id="251" Count="0" />
-      <LineId Id="191" Count="0" />
+      <LineId Id="381" Count="0" />
+      <LineId Id="383" Count="0" />
+      <LineId Id="382" Count="0" />
       <LineId Id="188" Count="0" />
       <LineId Id="154" Count="0" />
       <LineId Id="187" Count="0" />
       <LineId Id="167" Count="0" />
+      <LineId Id="384" Count="0" />
+      <LineId Id="387" Count="0" />
+      <LineId Id="386" Count="0" />
+      <LineId Id="385" Count="0" />
       <LineId Id="172" Count="1" />
       <LineId Id="255" Count="1" />
       <LineId Id="254" Count="0" />
-      <LineId Id="190" Count="0" />
-      <LineId Id="180" Count="0" />
-      <LineId Id="175" Count="0" />
+      <LineId Id="335" Count="0" />
+      <LineId Id="324" Count="0" />
       <LineId Id="181" Count="0" />
       <LineId Id="195" Count="0" />
       <LineId Id="197" Count="0" />
-      <LineId Id="196" Count="0" />
+      <LineId Id="333" Count="0" />
+      <LineId Id="318" Count="0" />
       <LineId Id="186" Count="0" />
-      <LineId Id="193" Count="0" />
+      <LineId Id="316" Count="0" />
+      <LineId Id="337" Count="0" />
+      <LineId Id="320" Count="1" />
+      <LineId Id="319" Count="0" />
+      <LineId Id="326" Count="1" />
+      <LineId Id="329" Count="1" />
+      <LineId Id="334" Count="0" />
+      <LineId Id="331" Count="0" />
+      <LineId Id="328" Count="0" />
+      <LineId Id="322" Count="0" />
       <LineId Id="138" Count="0" />
       <LineId Id="144" Count="0" />
       <LineId Id="272" Count="0" />
-      <LineId Id="240" Count="0" />
-      <LineId Id="257" Count="0" />
       <LineId Id="259" Count="0" />
-      <LineId Id="243" Count="0" />
       <LineId Id="242" Count="0" />
       <LineId Id="239" Count="0" />
       <LineId Id="124" Count="0" />
-      <LineId Id="123" Count="0" />
       <LineId Id="95" Count="0" />
       <LineId Id="97" Count="2" />
       <LineId Id="96" Count="0" />

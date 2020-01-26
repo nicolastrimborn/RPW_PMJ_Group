@@ -30,7 +30,7 @@ VAR
 	nInterpreterState	: UDINT	:= 0;
 	bConfirmHsk			: BOOL	:= FALSE;
 	
-	sPrgName			: STRING(255) := 'C:\Temp\github\NciSimpleSample\first.nc';
+	sPrgName			: STRING(255) := 'C:\Temp\github\RPW_PMJ_Group\PMJ_Cellv2\first.nc';
 END_VAR
 ]]></Declaration>
     <Implementation>
