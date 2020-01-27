@@ -1870,8 +1870,8 @@ External Setpoint Generation:
 					<AxisPara>
 						<General UnitName="°"/>
 						<Dynamic AccelerationMaximum="1500"/>
-						<Velo SlowManual="60" FastManual="80" Maximum="200"/>
-						<OtherSettings AllowMotionCmdToSlave="true" PulseDistancePos="2" PulseDistanceNeg="2"/>
+						<Velo SlowManual="50" FastManual="80" Maximum="200"/>
+						<OtherSettings AllowMotionCmdToSlave="true" PulseDistancePos="1" PulseDistanceNeg="1"/>
 					</AxisPara>
 					<Encoder Name="Enc" EncType="16">
 						<EncPara ScaleFactorNumerator="0.000457763671875" MaxCount="#x0000ffff">
@@ -2035,7 +2035,7 @@ External Setpoint Generation:
 					<AxisPara>
 						<General UnitName="°"/>
 						<Velo SlowManual="60" FastManual="100" Maximum="200"/>
-						<OtherSettings AllowMotionCmdToSlave="true" PulseDistancePos="2" PulseDistanceNeg="2"/>
+						<OtherSettings AllowMotionCmdToSlave="true" PulseDistancePos="1" PulseDistanceNeg="1"/>
 					</AxisPara>
 					<Encoder Name="Enc" EncType="16">
 						<EncPara ScaleFactorNumerator="0.000457763671875" MaxCount="#x0000ffff"/>
@@ -3148,12 +3148,12 @@ External Setpoint Generation:
 							<Type>WORD</Type>
 						</Var>
 						<Var>
-							<Name>GVL_IO.iHotendPowerLevel</Name>
-							<Type>INT</Type>
-						</Var>
-						<Var>
 							<Name>GVL_IO.bEnableHotend</Name>
 							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_IO.iHotendPowerLevel</Name>
+							<Type>INT</Type>
 						</Var>
 						<Var>
 							<Name>GVL_IO.bFan</Name>
