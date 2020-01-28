@@ -650,8 +650,8 @@ END_VAR
                         </o>
                         <o>
                           <o n="Operand" t="Operand">
-                            <v n="Operand">""</v>
-                            <v n="Type">"E_JogMode"</v>
+                            <v n="Operand">"MC_JOGMODE_STANDARD_SLOW"</v>
+                            <v n="Type">"E_JOGMODE"</v>
                             <v n="Comment">""</v>
                             <v n="SymbolComment">""</v>
                             <v n="Address">""</v>
@@ -996,8 +996,8 @@ END_VAR
                         </o>
                         <o>
                           <o n="Operand" t="Operand">
-                            <v n="Operand">""</v>
-                            <v n="Type">"E_JogMode"</v>
+                            <v n="Operand">"MC_JOGMODE_STANDARD_SLOW"</v>
+                            <v n="Type">"E_JOGMODE"</v>
                             <v n="Comment">""</v>
                             <v n="SymbolComment">""</v>
                             <v n="Address">""</v>

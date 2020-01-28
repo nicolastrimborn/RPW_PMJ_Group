@@ -2,38 +2,28 @@
 <TcLicenseInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2011/11/TcLicenseInfo">
 	<LicenseInfo>
 		<SystemId>{90CB77E4-1BF3-7428-BC56-87CF070212D5}</SystemId>
-		<IssueTime>2020-01-20T10:01:00</IssueTime>
-		<ExpireTime>2020-01-28T00:00:00</ExpireTime>
-		<LicenseKey>a207f80c2819b8ee32c17c8a198038fffdfe4dfaf4dc314f1a14340b9da01a1a309c423ac5635ab03e5676ec2bca53dff36142af96d19f421f4818ca6834911415cb644cf0574564b2869ae8b3b417d34b4c48ebdd196b3bbce90e3c669241aae967b155b5d973171fef809171d3c3162f9e3d4a14a347ec9ce1af1dc8e5a02b7005a1d02ce51dea0a14573a20d666e1b047e8f40812cde8474289b9be2f662a8468c0362dbf6dfbb89a0b016c780c2b68ad95defeb8bd15a195b89188ab2873e2cdd2890ce4dda4d140d4e1ae198a5f60b4a6ba7970f196d0b82256413f76bcb5e59e8654c4285de7517dac98d8d76894ebead97bb45cce3b99b3c202090b44</LicenseKey>
-		<License>
-			<LicenseId>{D6854388-0494-4832-9169-8003C437CBA5}</LicenseId>
-			<Name>TC3 Robotics mxAutomation</Name>
-			<OrderNo>TF5120</OrderNo>
-		</License>
-		<License>
-			<LicenseId>{461F547B-9F81-4C4D-8BE6-01F8B3B14C86}</LicenseId>
-			<Name>TC3 Building Automation Basic</Name>
-			<OrderNo>TF8010</OrderNo>
-		</License>
+		<IssueTime>2020-01-28T07:52:00</IssueTime>
+		<ExpireTime>2020-02-05T00:00:00</ExpireTime>
+		<LicenseKey>29c4bdb2020f49f06777682d8e5ee65002bb9694df9f5ef69d474b415e20dfd6bc7b240dcf21e4d59ed6e55005e524ffa4f63eab5ce8d1d9c4789762bb497ecd9b6063e5fb738fce83164823a3ca9b75cbb705d5a19ce5e539cdbbc31272cbb9dd964d813f518c99d3fb919be5bd9d571eef7c059a6cee66c093ef7e7a872d1478cc057506881a821262dc24d34194c42ddeb40adfc575ece9ac8e15cae9b7fc3de565eeb8e9d1d2e5960f4469afa71dcefd136a3bbfdaf4191947c4c20daf721302f29273daedb36defda5446d5e48db4f69634ce4ce9a3aa57bd95bce535d0266e781389225273b03ddfc286aa819a039d773f7b40971db8d27a8eb5638326</LicenseKey>
 		<License>
 			<LicenseId>{4C256767-E6E6-4AF5-BD68-9F7ABAD0C200}</LicenseId>
 			<Name>TC3 ADS</Name>
 			<OrderNo>TC1000</OrderNo>
 		</License>
 		<License>
-			<LicenseId>{777F1598-583B-4503-99BB-7C02E0ABD97E}</LicenseId>
-			<Name>TC3 Controller Toolbox</Name>
-			<OrderNo>TF4100</OrderNo>
-		</License>
-		<License>
-			<LicenseId>{A19036CF-A53B-4E3A-99FF-023EF5C4798B}</LicenseId>
-			<Name>TC3 NC PTP Axis</Name>
-			<Instances>10</Instances>
+			<LicenseId>{3FF18E97-7754-401B-93FB-70544DE28A13}</LicenseId>
+			<Name>TC3 IO</Name>
+			<OrderNo>TC1100</OrderNo>
 		</License>
 		<License>
 			<LicenseId>{66689887-CCBD-452C-AC9A-039D997C6E66}</LicenseId>
 			<Name>TC3 PLC</Name>
 			<OrderNo>TC1200</OrderNo>
+		</License>
+		<License>
+			<LicenseId>{A19036CF-A53B-4E3A-99FF-023EF5C4798B}</LicenseId>
+			<Name>TC3 NC PTP Axis</Name>
+			<Instances>10</Instances>
 		</License>
 		<License>
 			<LicenseId>{520DE751-9DB6-47CB-8240-BD5C466E7E64}</LicenseId>
@@ -46,14 +36,24 @@
 			<OrderNo>TF5100</OrderNo>
 		</License>
 		<License>
+			<LicenseId>{461F547B-9F81-4C4D-8BE6-01F8B3B14C86}</LicenseId>
+			<Name>TC3 Building Automation Basic</Name>
+			<OrderNo>TF8010</OrderNo>
+		</License>
+		<License>
+			<LicenseId>{777F1598-583B-4503-99BB-7C02E0ABD97E}</LicenseId>
+			<Name>TC3 Controller Toolbox</Name>
+			<OrderNo>TF4100</OrderNo>
+		</License>
+		<License>
 			<LicenseId>{1EEBBAAA-51E1-4750-9D6A-7B04116EA32B}</LicenseId>
 			<Name>TC3 Temperature-Controller</Name>
 			<OrderNo>TF4110</OrderNo>
 		</License>
 		<License>
-			<LicenseId>{3FF18E97-7754-401B-93FB-70544DE28A13}</LicenseId>
-			<Name>TC3 IO</Name>
-			<OrderNo>TC1100</OrderNo>
+			<LicenseId>{D6854388-0494-4832-9169-8003C437CBA5}</LicenseId>
+			<Name>TC3 Robotics mxAutomation</Name>
+			<OrderNo>TF5120</OrderNo>
 		</License>
 	</LicenseInfo>
 </TcLicenseInfo>

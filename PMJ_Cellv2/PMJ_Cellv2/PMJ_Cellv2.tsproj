@@ -1870,8 +1870,9 @@ External Setpoint Generation:
 					<AxisPara>
 						<General UnitName="°"/>
 						<Dynamic AccelerationMaximum="1500"/>
-						<Velo SlowManual="50" FastManual="80" Maximum="200"/>
-						<OtherSettings AllowMotionCmdToSlave="true" PulseDistancePos="1" PulseDistanceNeg="1"/>
+						<Velo SlowManual="40" FastManual="60" Maximum="200"/>
+						<OtherSettings AllowMotionCmdToSlave="true" PulseDistancePos="0.5" PulseDistanceNeg="0.5"/>
+						<ParameterChanged>9</ParameterChanged>
 					</AxisPara>
 					<Encoder Name="Enc" EncType="16">
 						<EncPara ScaleFactorNumerator="0.000457763671875" MaxCount="#x0000ffff">
@@ -2034,8 +2035,12 @@ External Setpoint Generation:
 					<Name>Axis Th2</Name>
 					<AxisPara>
 						<General UnitName="°"/>
-						<Velo SlowManual="60" FastManual="100" Maximum="200"/>
-						<OtherSettings AllowMotionCmdToSlave="true" PulseDistancePos="1" PulseDistanceNeg="1"/>
+						<Velo SlowManual="40" FastManual="60" Maximum="200"/>
+						<OtherSettings AllowMotionCmdToSlave="true" PulseDistancePos="0.5" PulseDistanceNeg="0.5"/>
+						<ParameterChanged>8</ParameterChanged>
+						<ParameterChanged>25</ParameterChanged>
+						<ParameterChanged>24</ParameterChanged>
+						<ParameterChanged>9</ParameterChanged>
 					</AxisPara>
 					<Encoder Name="Enc" EncType="16">
 						<EncPara ScaleFactorNumerator="0.000457763671875" MaxCount="#x0000ffff"/>
